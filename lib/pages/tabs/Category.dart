@@ -11,8 +11,8 @@ class CategoryPage extends StatefulWidget {
   _CategoryPageState createState() => _CategoryPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClientMixin{
-  
+class _CategoryPageState extends State<CategoryPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
@@ -107,17 +107,24 @@ class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClie
               //处理图片
               String pic = this._rightCateList[index].pic;
               pic = Config.domain + pic.replaceAll('\\', '/');
-              return Container(
-                child: Column(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 1 / 1,
-                      child: Image.network("${pic}", fit: BoxFit.cover),
-                    ),
-                    Container(
-                        height: ScreenAdaper.height(28),
-                        child: Text("${this._rightCateList[index].title}"))
-                  ],
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/productDetail',arguments: {
+                    'cid':this._rightCateList[index].sId
+                  });
+                },
+                child: Container(
+                  child: Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: Image.network("${pic}", fit: BoxFit.cover),
+                      ),
+                      Container(
+                          height: ScreenAdaper.height(28),
+                          child: Text("${this._rightCateList[index].title}"))
+                    ],
+                  ),
                 ),
               );
             },
@@ -131,7 +138,7 @@ class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClie
             padding: EdgeInsets.all(10),
             height: double.infinity,
             color: Color.fromRGBO(240, 246, 246, 0.9),
-             child: Text("加载中..."),
+            child: Text("加载中..."),
           ));
     }
   }
@@ -153,6 +160,4 @@ class _CategoryPageState extends State<CategoryPage> with AutomaticKeepAliveClie
       ],
     );
   }
-
-  
 }

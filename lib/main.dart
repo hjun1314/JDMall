@@ -17,6 +17,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
        initialRoute: '/',
        onGenerateRoute: onGenerateRoute,
+       debugShowCheckedModeBanner: false,
     );
   }
 }
