@@ -53,15 +53,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     });
     var api =
         "${Config.domain}api/plist?cid=${widget.arguments["cid"]}&page=${this._page}&sort=${this._sort}&pageSize=${this._pageSize}";
-    print(api);
+    // print(api);
     var result = await Dio().get(api);
-    print(result);
+    // print(result);
     var productDetailList = new ProductModel.fromJson(result.data);
     if (productDetailList.result.length < this._pageSize) {
       setState(() {
         this._productDetailList.addAll(productDetailList.result);
         this._hasMore = false;
-        this.flag = false;
+        this.flag = true;
       });
     } else {
       setState(() {
@@ -75,13 +75,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   //显示加载中的圈圈
   Widget _showMore(index) {
     if (this._hasMore) {
-      return index == this._productDetailList.length - 1
+      return (index == this._productDetailList.length - 1)
           ? LoadingWidget()
           : Text("");
     } else {
-      return index == this._productDetailList.length - 1
-          ? LoadingWidget()
-          : Text("--我是有底线的--");
+      return (index == this._productDetailList.length - 1)
+          ? Text("--我是有底线的--")
+          : Text("");
     }
   }
 
@@ -150,7 +150,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ],
                 ),
                 Divider(height: 20),
-                _showMore(index)
+                // _showMore(index)
               ],
             );
           },

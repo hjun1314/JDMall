@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import '../../model/FocusModel.dart';
 import '../../config/Config.dart';
 import '../../model/ProductModel.dart';
+import '../../widget/LoadingWidget.dart';
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -83,7 +84,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
         ),
       );
     } else {
-      return Text("加载中...");
+      return LoadingWidget();
     }
   }
 

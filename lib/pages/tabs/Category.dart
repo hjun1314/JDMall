@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../tools/ScreenAdaper.dart';
 import '../../model/CategoryModel.dart';
 import '../../config/Config.dart';
-
+import '../../widget/LoadingWidget.dart';
 class CategoryPage extends StatefulWidget {
   CategoryPage({Key key}) : super(key: key);
 
@@ -138,7 +138,7 @@ class _CategoryPageState extends State<CategoryPage>
             padding: EdgeInsets.all(10),
             height: double.infinity,
             color: Color.fromRGBO(240, 246, 246, 0.9),
-            child: Text("加载中..."),
+            child:  LoadingWidget(),
           ));
     }
   }
