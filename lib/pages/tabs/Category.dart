@@ -121,7 +121,7 @@ class _CategoryPageState extends State<CategoryPage>
                         child: Image.network("${pic}", fit: BoxFit.cover),
                       ),
                       Container(
-                          height: ScreenAdaper.height(28),
+                          height: ScreenAdaper.height(35),
                           child: Text("${this._rightCateList[index].title}"))
                     ],
                   ),
