@@ -18,6 +18,10 @@ class _MyAppState extends State<MyApp> {
        initialRoute: '/',
        onGenerateRoute: onGenerateRoute,
        debugShowCheckedModeBanner: false,
+       theme: ThemeData(
+         primaryColor: Colors.white
+       ),
     );
+
   }
 }

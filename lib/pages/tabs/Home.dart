@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   
   @override
   // TODO: implement wantKeepAlive
+  //tabbar保持刷新状态
   bool get wantKeepAlive => true;
 
   List _focusDataList = [];
