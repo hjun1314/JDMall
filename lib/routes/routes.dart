@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import '../pages/tabs/Tabs.dart';
 import '../pages/ProductDetail.dart';
+import '../pages/Search.dart';
 final routes = {
   '/':(context) => Tabs(),
   '/productDetail':(context,{arguments})=>ProductDetailPage(arguments: arguments),
+  '/search':(context) => SearchPage(),
 };
 
 var onGenerateRoute = (RouteSettings settings) {
