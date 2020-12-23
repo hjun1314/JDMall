@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:jdmarket/pages/Search.dart';
 import '../tools/ScreenAdaper.dart';
 import '../widget/LoadingWidget.dart';
 import '../model/ProductModel.dart';
@@ -32,6 +31,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   bool flag = true;
   //是否有数据
   bool _hasMore = true;
+  //是否有搜索的数据
+  bool _hasSearchData = true;
   //二级导航数据
   List _subHeaderList = [
     {
@@ -47,11 +48,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   ];
   //二级导航栏显示判断
   int _selectHeadId = 1;
+  //cid 和 搜索keyWords
+  var _cid;
+  var _keyWords;
+  //配置search搜索框的值
+  var _initKeyWordController = new TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    print(widget.arguments["aaa"]);
+    this._cid = widget.arguments["cid"];
+    this._keyWords = widget.arguments["keyWords"];
+    //search框赋值
+    this._initKeyWordController.text = this._keyWords;
     _getProductDetailData();
     //监听滚动事件
     _scrollController.addListener(() {
@@ -69,12 +78,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     setState(() {
       this.flag = false;
     });
-    var api =
-        "${Config.domain}api/plist?cid=${widget.arguments["cid"]}&page=${this._page}&sort=${this._sort}&pageSize=${this._pageSize}";
+    var api;
+    if (this._keyWords == null) {
+      api =
+          "${Config.domain}api/plist?cid=${this._cid}&page=${this._page}&sort=${this._sort}&pageSize=${this._pageSize}";
+    } else {
+      api =
+          "${Config.domain}api/plist?search=${this._keyWords}&page=${this._page}&sort=${this._sort}&pageSize=${this._pageSize}";
+    }
+
     // print(api);
     var result = await Dio().get(api);
     // print(result);
     var productDetailList = new ProductModel.fromJson(result.data);
+    //判断分页。是否最后一页有没有数据
     if (productDetailList.result.length < this._pageSize) {
       setState(() {
         this._productDetailList.addAll(productDetailList.result);
@@ -87,6 +104,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         this._page++;
         this.flag = true;
       });
+    }
+    //判断是否有搜索数据
+    if (productDetailList.result.length == 0 && this._page == 1) {
+      setState(() {
+        this._hasSearchData = false;
+      });
+    } else {
+      this._hasSearchData = true;
     }
   }
 
@@ -273,20 +298,56 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text("商品详情"),
-        //隐藏右侧筛选按钮
-        actions: [
-          Text(""),
-        ],
-      ),
-      endDrawer: Drawer(
-        child: Container(child: Text("实现筛选功能")),
-      ),
-      body: Stack(
-        children: [_productDeatilWidget(), _subHeaderWidget()],
-      ),
-    );
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Container(
+            child: TextField(
+              controller: this._initKeyWordController,
+              autofocus: false,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(34),
+                    borderSide: BorderSide.none),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  this._keyWords = value;
+                });
+              },
+            ),
+            height: ScreenAdaper.height(68),
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(233, 233, 233, 0.9),
+                borderRadius: BorderRadius.circular(34)),
+          ),
+          //右侧筛选按钮
+          actions: [
+            InkWell(
+              child: Container(
+                padding: EdgeInsets.only(left: 10),
+                child: Row(
+                  children: [Text("搜索")],
+                ),
+                height: ScreenAdaper.height(68),
+                width: ScreenAdaper.width(80),
+              ),
+              onTap: () {
+                this._subHeaderDataChange(1);
+              },
+            )
+          ],
+        ),
+        endDrawer: Drawer(
+          child: Container(child: Text("实现筛选功能")),
+        ),
+        //是否有搜索数据
+
+        body: _hasSearchData
+            ? Stack(
+                children: [_productDeatilWidget(), _subHeaderWidget()],
+              )
+            : Center(
+                child: Text("没有您要浏览的数据"),
+              ));
   }
 }

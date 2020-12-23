@@ -46,7 +46,7 @@ class _TabsState extends State<Tabs> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(Icons.search),
-                        Text("笔记本....",
+                        Text("",
                             style: TextStyle(fontSize: ScreenAdaper.height(28)))
                       ]),
                 ),
