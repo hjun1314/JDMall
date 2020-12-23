@@ -7,6 +7,7 @@ final routes = {
   '/':(context) => Tabs(),
   '/productDetail':(context,{arguments})=>ProductDetailPage(arguments: arguments),
   '/search':(context) => SearchPage(),
+  
 };
 
 var onGenerateRoute = (RouteSettings settings) {

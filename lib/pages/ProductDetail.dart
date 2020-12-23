@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:jdmarket/pages/Search.dart';
 import '../tools/ScreenAdaper.dart';
 import '../widget/LoadingWidget.dart';
 import '../model/ProductModel.dart';
@@ -50,6 +51,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   void initState() {
     super.initState();
+    print(widget.arguments["aaa"]);
     _getProductDetailData();
     //监听滚动事件
     _scrollController.addListener(() {
