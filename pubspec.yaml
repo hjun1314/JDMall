@@ -31,6 +31,8 @@ dependencies:
   flutter_swiper: ^1.1.6
   flutter_screenutil: ^3.2.0
   dio: ^3.0.10
+  shared_preferences: ^0.5.12+4
+
 
 
 dev_dependencies:

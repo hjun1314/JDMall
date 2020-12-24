@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:jdmarket/tools/SearcServices.dart';
 import '../tools/ScreenAdaper.dart';
 import '../widget/LoadingWidget.dart';
 import '../model/ProductModel.dart';
 import '../config/Config.dart';
-
 class ProductDetailPage extends StatefulWidget {
   Map arguments;
   ProductDetailPage({Key key, this.arguments}) : super(key: key);
@@ -332,6 +332,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 width: ScreenAdaper.width(80),
               ),
               onTap: () {
+                SearchServices.setHistoryData(this._keyWords);
                 this._subHeaderDataChange(1);
               },
             )
@@ -345,9 +346,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         body: _hasSearchData
             ? Stack(
                 children: [_productDeatilWidget(), _subHeaderWidget()],
-              )
-            : Center(
+              ): Center(
                 child: Text("没有您要浏览的数据"),
-              ));
+              )
+              );
   }
 }
