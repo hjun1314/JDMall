@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../pages/tabs/Tabs.dart';
 import '../pages/ProductDetail.dart';
 import '../pages/Search.dart';
+import '../productContent/productContent.dart';
 final routes = {
   '/':(context) => Tabs(),
   '/productDetail':(context,{arguments})=>ProductDetailPage(arguments: arguments),
   '/search':(context) => SearchPage(),
+  '/productContent':(context,{arguments})=>ProductContentPage(arguments:arguments),
   
 };
 
