@@ -6,14 +6,16 @@ class ScreenAdaper {
     ScreenUtil.init(context, designSize: Size(750, 1334));
   }
 
-  static width(double) {
-    return ScreenUtil().setWidth(double);
+  static width(double value) {
+    return ScreenUtil().setWidth(value);
   }
 
-  static height(double) {
-    return ScreenUtil().setHeight(double);
+  static height(double value) {
+    return ScreenUtil().setHeight(value);
   }
-
+  static size(double value) {
+    return ScreenUtil().setSp(value);
+  }
   static kScreenHeight() {
     return ScreenUtil().screenHeight;
   }

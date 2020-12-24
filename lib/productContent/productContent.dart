@@ -89,7 +89,7 @@ class _ProductContentPageState extends State<ProductContentPage> {
                     children: [
                       Container(
                         width: 100,
-                        height: ScreenAdaper.height(80),
+                        height: ScreenAdaper.height(88),
                         child: Column(
                           children: [Icon(Icons.shopping_cart), 
                           Text("购物车")],
