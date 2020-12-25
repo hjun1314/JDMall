@@ -14,8 +14,8 @@ class JDButtonPage extends StatelessWidget {
     return InkWell(
       onTap: this.sb,
       child: Container(
-        margin: EdgeInsets.fromLTRB(6, 6, 18, 6),
-        padding: EdgeInsets.fromLTRB(6, 6, 18, 6),
+        margin: EdgeInsets.fromLTRB(15, 6, 15, 6),
+        padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
         height: ScreenAdaper.height(60),
         width: double.infinity,
         decoration: BoxDecoration(

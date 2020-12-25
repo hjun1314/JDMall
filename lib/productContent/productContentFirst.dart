@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:jdmarket/config/Config.dart';
+import 'package:jdmarket/model/ProduContentModel.dart';
 import '../tools/ScreenAdaper.dart';
 import '../widget/JDButton.dart';
 
 class ProductContentFirstPage extends StatefulWidget {
-  ProductContentFirstPage({Key key}) : super(key: key);
+  final List _productContentList;
+  ProductContentFirstPage(this._productContentList, {Key key})
+      : super(key: key);
 
   @override
   _ProductContentFirstPageState createState() =>
@@ -24,219 +28,43 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> {
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Wrap(
-                          children: [
-                            Container(
-                                width: ScreenAdaper.width(100),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: ScreenAdaper.width(22)),
-                                  child: Text("颜色",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                )),
-                            Container(
-                              width: ScreenAdaper.width(610),
-                              child: Wrap(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Wrap(
-                          children: [
-                            Container(
-                                width: ScreenAdaper.width(100),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: ScreenAdaper.width(22)),
-                                  child: Text("颜色",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                )),
-                            Container(
-                              width: ScreenAdaper.width(610),
-                              child: Wrap(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Wrap(
-                          children: [
-                            Container(
-                                width: ScreenAdaper.width(100),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: ScreenAdaper.width(22)),
-                                  child: Text("颜色",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                )),
-                            Container(
-                              width: ScreenAdaper.width(610),
-                              child: Wrap(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Chip(
-                                      label: Text("白色"),
-                                      padding: EdgeInsets.all(10),
-                                    ),
-                                  ),
-                                  
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          width: ScreenAdaper.width(750),
-                          height: ScreenAdaper.height(76),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                 margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                 child: JDButtonPage(
-                                   color: Color.fromRGBO(253, 1, 0, 0.9),
-                                   text:"加入购物车",
-                                   sb: (){
-                                     print("加入购物车");
-                                   },
-                                 ),
-                                ),
-                                
-                              ),
-                               Expanded(
-                                flex: 1,
-                                child: Container(
-                                 margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                 child: JDButtonPage(
-                                   color: Color.fromRGBO(255, 165, 0, 0.9),
-                                   text:"立即购买",
-                                   sb: (){
-                                     print("立即购买");
-                                   },
-                                 ),
-                                ),
-                                
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                      children: _getAttrWidget(),
                     )
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                width: ScreenAdaper.width(750),
+                height: ScreenAdaper.height(76),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: JDButtonPage(
+                          color: Color.fromRGBO(253, 1, 0, 0.9),
+                          text: "加入购物车",
+                          sb: () {
+                            print("加入购物车");
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: JDButtonPage(
+                          color: Color.fromRGBO(255, 165, 0, 0.9),
+                          text: "立即购买",
+                          sb: () {
+                            print("立即购买");
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -245,29 +73,77 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> {
         });
   }
 
+  List<Widget> _getAttrItemWidget(attrItem) {
+    List<Widget> attrItemList = [];
+    attrItem.list.forEach((item) {
+      attrItemList.add(Container(
+        margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+        child: Chip(
+          label: Text("${item}"),
+          padding: EdgeInsets.all(10),
+        ),
+      ));
+    });
+    return attrItemList;
+  }
+
+  //封装组件渲染
+  List<Widget> _getAttrWidget() {
+    List<Widget> attrList = [];
+    this._attr.forEach((attrItem) {
+      attrList.add(Wrap(
+        children: [
+          Container(
+            width: ScreenAdaper.width(120),
+            child: Padding(
+              padding: EdgeInsets.only(top: ScreenAdaper.height(22)),
+              child: Text("${attrItem.cate}:",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+          ),
+          Container(
+              width: ScreenAdaper.width(590),
+              child: Wrap(children: _getAttrItemWidget(attrItem)))
+        ],
+      ));
+    });
+    return attrList;
+  }
+
+  ProductContentitem _productContentitem;
+  List _attr = [];
+  @override
+  void initState() {
+    super.initState();
+    this._productContentitem = widget._productContentList[0];
+    this._attr = this._productContentitem.attr;
+    print(this._attr);
+  }
+
   @override
   Widget build(BuildContext context) {
+    //处理图片
+    String pic = Config.domain + this._productContentitem.pic;
+    pic = pic.replaceAll('\\', '/');
     ScreenAdaper.init(context);
     return Container(
       padding: EdgeInsets.all(10),
       child: ListView(
         children: [
           AspectRatio(
-            child: Image.network("https://www.itying.com/images/flutter/p1.jpg",
-                fit: BoxFit.cover),
-            aspectRatio: 16 / 9,
+            child: Image.network("${pic}", fit: BoxFit.cover),
+            aspectRatio: 4 / 3,
           ),
           //标题
           Container(
             padding: EdgeInsets.only(top: 16),
-            child: Text("联想ThinkPad 翼480（0VCD） 英特尔酷睿i5 14英寸轻薄窄边框笔记本电脑",
+            child: Text("${this._productContentitem.title}",
                 style: TextStyle(
                     color: Colors.black87, fontSize: ScreenAdaper.height(36))),
           ),
           Container(
             padding: EdgeInsets.only(top: 10),
-            child: Text(
-                "震撼首发，15.9毫米全金属外观，4.9毫米轻薄窄边框，指纹电源按钮，杜比音效，2G独显，预装正版office软件",
+            child: Text("${this._productContentitem.subTitle}",
                 style: TextStyle(
                     color: Colors.black54, fontSize: ScreenAdaper.height(28))),
           ),
@@ -278,8 +154,8 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> {
               Expanded(
                 flex: 1,
                 child: Row(children: [
-                  Text("特价"),
-                  Text("￥28",
+                  Text("特价 "),
+                  Text("￥${this._productContentitem.price}",
                       style: TextStyle(
                           color: Colors.red, fontSize: ScreenAdaper.size(36)))
                 ]),
@@ -287,8 +163,8 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> {
               Expanded(
                 flex: 1,
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Text("原价"),
-                  Text("￥44",
+                  Text("原价 "),
+                  Text("￥${this._productContentitem.oldPrice}",
                       style: TextStyle(
                           color: Colors.black45,
                           fontSize: ScreenAdaper.size(28),
@@ -307,7 +183,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> {
                 },
                 child: Row(
                   children: [
-                    Text("已选", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("已选: ", style: TextStyle(fontWeight: FontWeight.bold)),
                     Text("115，黑色，XL，1件")
                   ],
                 ),
@@ -318,7 +194,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> {
             height: ScreenAdaper.height(80),
             child: Row(
               children: [
-                Text("运费", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text("运费: ", style: TextStyle(fontWeight: FontWeight.bold)),
                 Text("免运费")
               ],
             ),

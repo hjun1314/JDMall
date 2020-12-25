@@ -1,10 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:jdmarket/widget/LoadingWidget.dart';
 import '../productContent/productContentFirst.dart';
 import '../productContent/productContentSecond.dart';
 import '../productContent/productContentThird.dart';
 import '../tools/ScreenAdaper.dart';
 import '../widget/JDButton.dart';
-
+import '../config/Config.dart';
+import '../model/ProduContentModel.dart';
 class ProductContentPage extends StatefulWidget {
   final Map arguments;
   ProductContentPage({Key key, this.arguments}) : super(key: key);
@@ -14,6 +17,23 @@ class ProductContentPage extends StatefulWidget {
 }
 
 class _ProductContentPageState extends State<ProductContentPage> {
+  List _productContentList = [];
+  @override
+  void initState() { 
+    super.initState();
+    this._getContentData();
+  }
+  _getContentData()async{
+ var api = '${Config.domain}api/pcontent?id=${widget.arguments['id']}';
+//  print(api);
+ var result = await Dio().get(api);
+  var productContent = new ProductContentModel.fromJson(result.data);
+ setState(() {
+   this._productContentList.add(productContent.result);
+ });
+ print(this._productContentList);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -66,11 +86,11 @@ class _ProductContentPageState extends State<ProductContentPage> {
             ),
           ],
         ),
-        body: Stack(
+        body: this._productContentList.length > 0 ? Stack(
           children: [
             TabBarView(
               children: [
-                ProductContentFirstPage(),
+                ProductContentFirstPage(this._productContentList),
                 ProductContentSecondPage(),
                 ProductContentThirdPage()
               ],
@@ -120,7 +140,7 @@ class _ProductContentPageState extends State<ProductContentPage> {
                   ),
             )
           ],
-        ),
+        ):LoadingWidget(),
       ),
     );
   }
