@@ -91,7 +91,7 @@ class _ProductContentPageState extends State<ProductContentPage> {
             TabBarView(
               children: [
                 ProductContentFirstPage(this._productContentList),
-                ProductContentSecondPage(),
+                ProductContentSecondPage(this._productContentList),
                 ProductContentThirdPage()
               ],
             ),

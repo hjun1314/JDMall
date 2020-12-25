@@ -1,16 +1,44 @@
 import 'package:flutter/material.dart';
+import '../widget/LoadingWidget.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 class ProductContentSecondPage extends StatefulWidget {
-  ProductContentSecondPage({Key key}) : super(key: key);
+  final List _productContentList;
+
+  ProductContentSecondPage(this._productContentList, {Key key})
+      : super(key: key);
 
   @override
-  _ProductContentSecondPageState createState() => _ProductContentSecondPageState();
+  _ProductContentSecondPageState createState() =>
+      _ProductContentSecondPageState();
 }
 
-class _ProductContentSecondPageState extends State<ProductContentSecondPage> {
+class _ProductContentSecondPageState extends State<ProductContentSecondPage>
+    with AutomaticKeepAliveClientMixin {
+  var _id;
+  bool get wantKeepAlive => true;
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    this._id = widget._productContentList[0].sId;
+  }
+
   @override
   Widget build(BuildContext context) {
-   return Center(
-     child: Text("详情"),
-   );
+    return Container(
+      //默认加载地址
+      child: Builder(builder: (BuildContext context) {
+        return WebView(
+          initialUrl: "http://jd.itying.com/pcontent?id=${this._id}",
+        );
+      }),
+    );
   }
 }

@@ -15,7 +15,9 @@ class ProductContentFirstPage extends StatefulWidget {
       _ProductContentFirstPageState();
 }
 
-class _ProductContentFirstPageState extends State<ProductContentFirstPage> {
+class _ProductContentFirstPageState extends State<ProductContentFirstPage> with AutomaticKeepAliveClientMixin {
+    bool get wantKeepAlive => true;
+
   _attrBottomSheet() {
     showModalBottomSheet(
         context: context,

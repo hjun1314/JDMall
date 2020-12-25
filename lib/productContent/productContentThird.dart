@@ -6,7 +6,8 @@ class ProductContentThirdPage extends StatefulWidget {
   _ProductContentThirdPageState createState() => _ProductContentThirdPageState();
 }
 
-class _ProductContentThirdPageState extends State<ProductContentThirdPage> {
+class _ProductContentThirdPageState extends State<ProductContentThirdPage> with AutomaticKeepAliveClientMixin{
+    bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
    return  Container(
