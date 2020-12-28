@@ -15,74 +15,136 @@ class ProductContentFirstPage extends StatefulWidget {
       _ProductContentFirstPageState();
 }
 
-class _ProductContentFirstPageState extends State<ProductContentFirstPage> with AutomaticKeepAliveClientMixin {
-    bool get wantKeepAlive => true;
+class _ProductContentFirstPageState extends State<ProductContentFirstPage>
+    with AutomaticKeepAliveClientMixin {
+  bool get wantKeepAlive => true;
 
   _attrBottomSheet() {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Stack(
-            children: [
-              Container(
-                padding: EdgeInsets.all(ScreenAdaper.width(20)),
-                child: ListView(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: _getAttrWidget(),
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                width: ScreenAdaper.width(750),
-                height: ScreenAdaper.height(76),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: JDButtonPage(
-                          color: Color.fromRGBO(253, 1, 0, 0.9),
-                          text: "加入购物车",
-                          sb: () {
-                            print("加入购物车");
-                          },
-                        ),
-                      ),
+          return StatefulBuilder(
+            builder: (BuildContext context, setBottomState) {
+              child:
+              Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(ScreenAdaper.width(20)),
+                    child: ListView(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _getAttrWidget(setBottomState),
+                        )
+                      ],
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: JDButtonPage(
-                          color: Color.fromRGBO(255, 165, 0, 0.9),
-                          text: "立即购买",
-                          sb: () {
-                            print("立即购买");
-                          },
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    width: ScreenAdaper.width(750),
+                    height: ScreenAdaper.height(76),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: JDButtonPage(
+                              color: Color.fromRGBO(253, 1, 0, 0.9),
+                              text: "加入购物车",
+                              sb: () {
+                                print("加入购物车");
+                              },
+                            ),
+                          ),
                         ),
-                      ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: JDButtonPage(
+                              color: Color.fromRGBO(255, 165, 0, 0.9),
+                              text: "立即购买",
+                              sb: () {
+                                print("立即购买");
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )
-            ],
+                  )
+                ],
+              );
+            },
           );
         });
   }
 
-  List<Widget> _getAttrItemWidget(attrItem) {
+  //初始化筛选选中
+  _initAttr() {
+    var attr = this._attr;
+    for (var i = 0; i < attr.length; i++) {
+      for (var j = 0; j < attr[i].list.length; j++) {
+        if (j == 0) {
+          attr[i].attrList.add({"title": attr[i].list[j], "checked": true});
+        } else {
+          attr[i].attrList.add({"title": attr[i].list[j], "checked": false});
+        }
+      }
+    }
+    _getSelectAttrValue();
+  }
+
+  _getSelectAttrValue() {
+    var _list = this._attr;
+    List tempArr = [];
+    for (var i = 0; i < _list.length; i++) {
+      for (var j = 0; j < _list[i].attrList.length; j++) {
+        if (_list[i].attrList[j]['checked'] == true) {
+          tempArr.add(_list[i].attrList[j]["title"]);
+        }
+      }
+    }
+    setState(() {
+      this._selectedValue = tempArr.join(",");
+    });
+  }
+
+  //改变属性值
+  _chanegAttr(cate, title, setBottomState) {
+    var attr = this._attr;
+    for (var i = 0; i < attr.length; i++) {
+      if (attr[i].cate == cate) {
+        for (var j = 0; j < attr[i].attrList.length; j++) {
+          attr[i].attrList[j]["checked"] = false;
+          if (title == attr[i].attrList[j]["title"]) {
+            attr[i].attrList[j]["checked"] = true;
+          }
+        }
+      }
+    }
+    setBottomState(() {
+      this._attr = attr;
+    });
+    _getSelectAttrValue();
+  }
+
+  // 商品筛选数据加载
+  List<Widget> _getAttrItemWidget(attrItem, setBottomState) {
     List<Widget> attrItemList = [];
     attrItem.list.forEach((item) {
       attrItemList.add(Container(
         margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
-        child: Chip(
-          label: Text("${item}"),
-          padding: EdgeInsets.all(10),
+        child: InkWell(
+          child: Chip(
+            label: Text("${item}"),
+            padding: EdgeInsets.all(10),
+            backgroundColor: item["checked"] ? Colors.red : Colors.black26,
+          ),
+          onTap: () {
+            _chanegAttr(attrItem.cate, item["title"], setBottomState);
+          },
         ),
       ));
     });
@@ -90,7 +152,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> with 
   }
 
   //封装组件渲染
-  List<Widget> _getAttrWidget() {
+  List<Widget> _getAttrWidget(setBottomState) {
     List<Widget> attrList = [];
     this._attr.forEach((attrItem) {
       attrList.add(Wrap(
@@ -105,7 +167,8 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> with 
           ),
           Container(
               width: ScreenAdaper.width(590),
-              child: Wrap(children: _getAttrItemWidget(attrItem)))
+              child:
+                  Wrap(children: _getAttrItemWidget(attrItem, setBottomState)))
         ],
       ));
     });
@@ -114,11 +177,14 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> with 
 
   ProductContentitem _productContentitem;
   List _attr = [];
+  String _selectedValue;
+
   @override
   void initState() {
     super.initState();
     this._productContentitem = widget._productContentList[0];
     this._attr = this._productContentitem.attr;
+    _initAttr();
     print(this._attr);
   }
 
@@ -176,7 +242,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> with 
             ],
           )),
           //筛选
-          Container(
+      this._attr.length > 0  ?  Container(
               margin: EdgeInsets.only(top: 10),
               height: ScreenAdaper.height(80),
               child: InkWell(
@@ -186,10 +252,11 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage> with 
                 child: Row(
                   children: [
                     Text("已选: ", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text("115，黑色，XL，1件")
+                        Text("${this._selectedValue}")
                   ],
                 ),
-              )),
+              )
+              ):Text(""),
           Divider(),
           Container(
             // margin: EdgeInsets.only(top: 10),
