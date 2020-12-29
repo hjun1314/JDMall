@@ -98,16 +98,15 @@ class ProductContentitem {
 class Attr {
   String cate;
   List<String> list;
-  //自己加的数组。筛选商品详情数据
   List<Map> attrList;
+
 
   Attr({this.cate, this.list});
 
   Attr.fromJson(Map<String, dynamic> json) {
     cate = json['cate'];
     list = json['list'].cast<String>();
-     attrList=[];
-
+    attrList=[];
   }
 
   Map<String, dynamic> toJson() {

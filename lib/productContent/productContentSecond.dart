@@ -28,6 +28,7 @@ class _ProductContentSecondPageState extends State<ProductContentSecondPage>
     super.initState();
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
     this._id = widget._productContentList[0].sId;
+    print(this._id);
   }
 
   @override
@@ -37,6 +38,7 @@ class _ProductContentSecondPageState extends State<ProductContentSecondPage>
       child: Builder(builder: (BuildContext context) {
         return WebView(
           initialUrl: "http://jd.itying.com/pcontent?id=${this._id}",
+          
         );
       }),
     );

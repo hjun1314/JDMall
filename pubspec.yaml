@@ -33,6 +33,7 @@ dependencies:
   dio: ^3.0.10
   shared_preferences: ^0.5.12+4
   webview_flutter: ^1.0.7
+  provider: ^4.3.2+3
 
 
 
