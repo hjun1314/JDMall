@@ -4,6 +4,7 @@ import '../../tools/ScreenAdaper.dart';
 import '../../model/CategoryModel.dart';
 import '../../config/Config.dart';
 import '../../widget/LoadingWidget.dart';
+
 class CategoryPage extends StatefulWidget {
   CategoryPage({Key key}) : super(key: key);
 
@@ -109,9 +110,8 @@ class _CategoryPageState extends State<CategoryPage>
               pic = Config.domain + pic.replaceAll('\\', '/');
               return InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/productDetail',arguments: {
-                    'cid':this._rightCateList[index].sId
-                  });
+                  Navigator.pushNamed(context, '/productDetail',
+                      arguments: {'cid': this._rightCateList[index].sId});
                 },
                 child: Container(
                   child: Column(
@@ -138,7 +138,7 @@ class _CategoryPageState extends State<CategoryPage>
             padding: EdgeInsets.all(10),
             height: double.infinity,
             color: Color.fromRGBO(240, 246, 246, 0.9),
-            child:  LoadingWidget(),
+            child: LoadingWidget(),
           ));
     }
   }
@@ -153,11 +153,41 @@ class _CategoryPageState extends State<CategoryPage>
     rightItemWidth = ScreenAdaper.width(rightItemWidth);
     //获取计算后的高度
     var rightItemHeight = rightItemWidth + ScreenAdaper.height(35);
-    return Row(
-      children: <Widget>[
-        _leftCateWidget(leftWidth),
-        _rightCateWidget(rightItemWidth, rightItemHeight)
-      ],
-    );
+    return Scaffold(
+        appBar: AppBar(
+          // title: Text("京东商城"),
+          leading: IconButton(
+              icon: Icon(Icons.center_focus_weak,
+                  size: 28, color: Colors.black87),
+              onPressed: () {}),
+          title: InkWell(
+            child: Container(
+              height: ScreenAdaper.height(66),
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(233, 233, 233, 0.9),
+                  borderRadius: BorderRadius.circular(33)),
+              padding: EdgeInsets.only(left: 10),
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Icon(Icons.search),
+                Text("", style: TextStyle(fontSize: ScreenAdaper.height(28)))
+              ]),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, "/search");
+            },
+          ),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.message, size: 28, color: Colors.black87),
+                onPressed: () {}),
+          ],
+        ),
+        body: Row(
+          children: <Widget>[
+            _leftCateWidget(leftWidth),
+            _rightCateWidget(rightItemWidth, rightItemHeight)
+          ],
+        ));
   }
 }

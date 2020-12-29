@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../provider/Counter.dart';
+import 'package:jdmarket/tools/ScreenAdaper.dart';
+// import 'package:provider/provider.dart';
 class CartPage extends StatefulWidget {
   CartPage({Key key}) : super(key: key);
 
@@ -11,18 +11,36 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-     var counterProvider = Provider.of<Counter>(context);
+    ScreenAdaper.init(context);
     return Scaffold(
-    floatingActionButton: FloatingActionButton(
-      onPressed: (){
-        counterProvider.incCount();
-      },
-      child: Icon(Icons.add),
-      
-    ),
-    body: Center(
-      child: Text("${counterProvider.count}",style: TextStyle(fontSize: 50)),
-    ),
+      appBar: AppBar(
+        title: Text("购物车"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.launch),
+            onPressed: null,
+          )
+        ],
+      ),
+      body: Stack(
+        children: [
+          Text("hahaha"),
+          Positioned(
+            bottom: 0,
+            width: ScreenAdaper.width(750),
+            height: ScreenAdaper.height(78),
+            child: Container(
+            width: ScreenAdaper.width(750),
+            height: ScreenAdaper.height(78),
+            child: Expanded(
+              flex: 1,
+              child: Text("123"),
+            ),
+            
+            ),
+          )
+        ],
+      ),
     );
-}
+  }
 }

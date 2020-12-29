@@ -4,7 +4,6 @@ import 'Cart.dart';
 import 'Category.dart';
 import 'Home.dart';
 import 'User.dart';
-import '../Search.dart';
 
 class Tabs extends StatefulWidget {
   Tabs({Key key}) : super(key: key);
@@ -14,7 +13,7 @@ class Tabs extends StatefulWidget {
 }
 
 class _TabsState extends State<Tabs> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   PageController _pageController;
 
   @override
@@ -28,41 +27,6 @@ class _TabsState extends State<Tabs> {
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
     return Scaffold(
-      appBar: _currentIndex != 3
-          ? AppBar(
-              // title: Text("京东商城"),
-              leading: IconButton(
-                  icon: Icon(Icons.center_focus_weak,
-                      size: 28, color: Colors.black87),
-                  onPressed: () {}),
-              title: InkWell(
-                child: Container(
-                  height: ScreenAdaper.height(66),
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(233, 233, 233, 0.9),
-                      borderRadius: BorderRadius.circular(33)),
-                  padding: EdgeInsets.only(left: 10),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(Icons.search),
-                        Text("",
-                            style: TextStyle(fontSize: ScreenAdaper.height(28)))
-                      ]),
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, "/search");
-                },
-              ),
-              actions: [
-                IconButton(
-                    icon: Icon(Icons.message, size: 28, color: Colors.black87),
-                    onPressed: () {}),
-              ],
-            )
-          : AppBar(
-              title: Text("用户中心"),
-            ),
       // body: this._pageList[this._currentIndex],
       body: PageView(
         controller: this._pageController,

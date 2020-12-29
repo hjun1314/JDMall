@@ -150,9 +150,10 @@ class _HomePageState extends State<HomePage>
           String sPic = value.sPic;
           sPic = Config.domain + sPic.replaceAll('\\', '/');
           return InkWell(
-            onTap: (){
+            onTap: () {
               print("点击了商品详情跳转");
-              Navigator.pushNamed(context, "/productContent",arguments: {"id":value.sId});
+              Navigator.pushNamed(context, "/productContent",
+                  arguments: {"id": value.sId});
             },
             child: Container(
               padding: EdgeInsets.all(10),
@@ -213,16 +214,44 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
-    return ListView(
-      children: <Widget>[
-        _swiperWidget(),
-        SizedBox(height: ScreenAdaper.height(20)),
-        _titleWidget("猜你喜欢"),
-        SizedBox(height: ScreenAdaper.height(20)),
-        _hotProductWidget(),
-        _titleWidget("热门推荐"),
-        _recProductListWidget(),
-      ],
-    );
+    return Scaffold(
+        appBar: AppBar(
+          // title: Text("京东商城"),
+          leading: IconButton(
+              icon: Icon(Icons.center_focus_weak,
+                  size: 28, color: Colors.black87),
+              onPressed: () {}),
+          title: InkWell(
+            child: Container(
+              height: ScreenAdaper.height(66),
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(233, 233, 233, 0.9),
+                  borderRadius: BorderRadius.circular(33)),
+              padding: EdgeInsets.only(left: 10),
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Icon(Icons.search),
+                Text("", style: TextStyle(fontSize: ScreenAdaper.height(28)))
+              ]),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, "/search");
+            },
+          ),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.message, size: 28, color: Colors.black87),
+                onPressed: () {}),
+          ],
+        ),
+        body: ListView(children: <Widget>[
+          _swiperWidget(),
+          SizedBox(height: ScreenAdaper.height(20)),
+          _titleWidget("猜你喜欢"),
+          SizedBox(height: ScreenAdaper.height(20)),
+          _hotProductWidget(),
+          _titleWidget("热门推荐"),
+          _recProductListWidget(),
+        ]));
   }
 }
