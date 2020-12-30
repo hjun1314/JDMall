@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jdmarket/tools/ScreenAdaper.dart';
+import '../../cart/CartItem.dart';
 // import 'package:provider/provider.dart';
 class CartPage extends StatefulWidget {
   CartPage({Key key}) : super(key: key);
@@ -24,7 +25,18 @@ class _CartPageState extends State<CartPage> {
       ),
       body: Stack(
         children: [
-          Text("hahaha"),
+         Stack(
+           children: [
+             ListView(
+              children: [
+                CartItemPage(),
+                CartItemPage(),
+                CartItemPage(),
+                CartItemPage(),
+              ],
+             )
+           ],
+         ),
           Positioned(
             bottom: 0,
             width: ScreenAdaper.width(750),
@@ -32,9 +44,38 @@ class _CartPageState extends State<CartPage> {
             child: Container(
             width: ScreenAdaper.width(750),
             height: ScreenAdaper.height(78),
-            child: Expanded(
-              flex: 1,
-              child: Text("123"),
+            child: Stack(
+             children: [
+               Align(
+                 alignment: Alignment.centerLeft,
+                 child: Row(
+                   children: [
+                     Container(
+                       width: ScreenAdaper.width(60),
+                       child:Checkbox(
+                         onChanged: (value){
+
+                         },
+                         value: true,
+                         activeColor: Colors.pink,
+                       ) ,
+                     ),
+                     Text("全选")
+                   ],
+                 )
+               ),
+               Align(
+                 alignment: Alignment.centerRight,
+                 child: RaisedButton(
+                   child: Text("结算",style: TextStyle(color: Colors.white)),
+                   color: Colors.red,
+
+                   onPressed: (){
+
+                   },
+                 ),
+               )
+             ],
             ),
             
             ),
