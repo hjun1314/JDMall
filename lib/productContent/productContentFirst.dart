@@ -4,6 +4,9 @@ import 'package:jdmarket/config/Config.dart';
 import 'package:jdmarket/model/ProduContentModel.dart';
 import '../tools/ScreenAdaper.dart';
 import '../widget/JDButton.dart';
+import '../tools/EventBus.dart';
+import '../tools/CartService.dart';
+import '../productContent/productContentCartNum.dart';
 
 class ProductContentFirstPage extends StatefulWidget {
   final List _productContentList;
@@ -24,6 +27,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
   String _selectedValue;
 
   bool get wantKeepAlive => true;
+  var actionEventBus;
 
   @override
   void initState() {
@@ -33,7 +37,18 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
     this._attr = this._productContent.attr;
 
     _initAttr();
-
+    //监听广播
+    this.actionEventBus = eventBus.on<ProductContentEvent>().listen((str) {
+      print("监听广播${str}....");
+      print(str);
+      this._attrBottomSheet();
+    });
+    //销毁
+    @override
+    void dispose() {
+      super.dispose();
+      this.actionEventBus.cancel();
+    }
     //[{"cate":"鞋面材料","list":["牛皮 "]},{"cate":"闭合方式","list":["系带"]},{"cate":"颜色","list":["红色","白色","黄色"]}]
 
     // list":["系带","非系带"]
@@ -197,7 +212,27 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
                         children: <Widget>[
                           Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: _getAttrWidget(setBottomState))
+                              children: _getAttrWidget(setBottomState)),
+                          Divider(),
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            height: ScreenAdaper.height(80),
+                            child: InkWell(
+                              onTap: () {
+                                // _attrBottomSheet();
+                              },
+                              child: Row(
+                                children: [
+                                  Text("数量:",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  SizedBox(width: 10),
+                                  ProductContentCartNumPage(
+                                      this._productContent)
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -216,6 +251,8 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
                                 text: "加入购物车",
                                 sb: () {
                                   print('加入购物车');
+                                  CartServices.addCart(this._productContent);
+                                  Navigator.of(context).pop();
                                 },
                               ),
                             ),

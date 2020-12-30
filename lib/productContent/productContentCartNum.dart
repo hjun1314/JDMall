@@ -1,22 +1,28 @@
+//点击加入购物车
 import 'package:flutter/material.dart';
-import 'package:jdmarket/cart/CartItem.dart';
 import 'package:jdmarket/tools/ScreenAdaper.dart';
-// import 'package:flutter/widgets.dart';
-// import '../model/ProduContentModel.dart';
-class CartNumPage extends StatefulWidget {
-  // ProductContentitem _productContentitem;
-  // CartNumPage(this._productContentitem,{Key key}) : super(key: key);
+import 'package:flutter/widgets.dart';
+import '../model/ProduContentModel.dart';
+
+class ProductContentCartNumPage extends StatefulWidget {
+  ProductContentitem _productContentitem;
+  ProductContentCartNumPage(this._productContentitem, {Key key})
+      : super(key: key);
   @override
-  _CartNumPageState createState() => _CartNumPageState();
+  _ProductContentCartNumPageState createState() =>
+      _ProductContentCartNumPageState();
 }
 
-class _CartNumPageState extends State<CartNumPage> {
-  // ProductContentitem _productContentitem;
-  // @override
-  // void initState() { 
-  //   super.initState();
-  //   this._productContentitem = widget._productContentitem;
-  // }
+class _ProductContentCartNumPageState extends State<ProductContentCartNumPage> {
+  ProductContentitem _productContentitem;
+  @override
+  void initState() {
+    super.initState();
+    this._productContentitem = widget._productContentitem;
+    print(this._productContentitem);
+    print(111111);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,6 +44,11 @@ class _CartNumPageState extends State<CartNumPage> {
         width: ScreenAdaper.width(45),
       ),
       onTap: () {
+        if (this._productContentitem.count > 1) {
+          setState(() {
+            this._productContentitem.count = this._productContentitem.count - 1;
+          });
+        }
       },
     );
   }
@@ -63,7 +74,11 @@ class _CartNumPageState extends State<CartNumPage> {
         height: ScreenAdaper.height(45),
         width: ScreenAdaper.width(45),
       ),
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          this._productContentitem.count = this._productContentitem.count + 1;
+        });
+      },
     );
   }
 }
