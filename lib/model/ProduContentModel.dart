@@ -32,11 +32,9 @@ class ProductContentitem {
   List<Attr> attr;
   String subTitle;
   Object salecount;
-  //新增
+  //新增 购物车数量加减及选择
   int count;
   String selectedAttr;
-
-
 
   ProductContentitem(
       {this.sId,
@@ -55,7 +53,7 @@ class ProductContentitem {
       this.subTitle,
       this.salecount,
       this.count,
-      this.selectedAttr      
+      this.selectedAttr
       });
 
   ProductContentitem.fromJson(Map<String, dynamic> json) {
@@ -79,12 +77,9 @@ class ProductContentitem {
     }
     subTitle = json['sub_title'];
     salecount = json['salecount'];
-
-    //新增
-    count=1;
+      //新增
+    count = 1;
     selectedAttr='';
-
-
   }
 
   Map<String, dynamic> toJson() {
@@ -106,6 +101,7 @@ class ProductContentitem {
     }
     data['sub_title'] = this.subTitle;
     data['salecount'] = this.salecount;
+   
     return data;
   }
 }
@@ -113,6 +109,7 @@ class ProductContentitem {
 class Attr {
   String cate;
   List<String> list;
+  //处理数据自己添加
   List<Map> attrList;
 
 
@@ -121,6 +118,7 @@ class Attr {
   Attr.fromJson(Map<String, dynamic> json) {
     cate = json['cate'];
     list = json['list'].cast<String>();
+      //处理数据自己添加
     attrList=[];
   }
 

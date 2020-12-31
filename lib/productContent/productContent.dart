@@ -138,7 +138,7 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                         .fire(new ProductContentEvent("加入购物车"));
                                   } else {
                                     print("加入购物车...");
-                                  }
+                                  }        
                                 },
                               ),
                             ),

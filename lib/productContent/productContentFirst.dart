@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:jdmarket/config/Config.dart';
 import 'package:jdmarket/model/ProduContentModel.dart';
+import 'package:provider/provider.dart';
 import '../tools/ScreenAdaper.dart';
 import '../widget/JDButton.dart';
 import '../tools/EventBus.dart';
 import '../tools/CartService.dart';
 import '../productContent/productContentCartNum.dart';
-
+import '../provider/CartProvider.dart';
 class ProductContentFirstPage extends StatefulWidget {
   final List _productContentList;
   ProductContentFirstPage(this._productContentList, {Key key})
@@ -28,7 +29,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
 
   bool get wantKeepAlive => true;
   var actionEventBus;
-
+  var cartProvider;
   @override
   void initState() {
     super.initState();
@@ -225,7 +226,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
                             height: ScreenAdaper.height(80),
                             child: InkWell(
                               onTap: () {
-                                 _attrBottomSheet();
+                                //  _attrBottomSheet();
                               },
                               child: Row(
                                 children: <Widget>[
@@ -257,10 +258,12 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
                               child: JDButtonPage(
                                 color: Color.fromRGBO(253, 1, 0, 0.9),
                                 text: "加入购物车",
-                                sb: () {
+                                sb: ()async {
                                   print('加入购物车');
-                                  CartServices.addCart(this._productContent);
+                               await   CartServices.addCart(this._productContent);
                                   Navigator.of(context).pop();
+                                  //调用provider更新数据
+                                  this.cartProvider.updateCartList;
                                 },
                               ),
                             ),
@@ -290,6 +293,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
 
   @override
   Widget build(BuildContext context) {
+    this.cartProvider = Provider.of<CartProvider>(context);
     //处理图片
     String pic = Config.domain + this._productContent.pic;
     pic = pic.replaceAll('\\', '/');

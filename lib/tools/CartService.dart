@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'Storage.dart';
 import '../config/Config.dart';
+
 class CartServices {
-  static addCart(item) async{
+  static addCart(item) async {
     //把对象转换成map类型的数据
-    item =  CartServices.formtCartData(item);
+    item = CartServices.formtCartData(item);
     print(item);
- /*
+    /*
       1、获取本地存储的cartList数据
       2、判断cartList是否有数据
             有数据：
@@ -49,24 +50,33 @@ class CartServices {
     try {
       List cartListData = json.decode(await Storage.getString("cartList"));
       //判断购物车有没有当前的数据
-      bool hasData = cartListData.any((value){
-        return value["_id"] == item['_id']&&value['selectedAttr'] == item['selectedAttr'];
+      bool hasData = cartListData.any((value) {
+        return value["_id"] == item['_id'] &&
+            value['selectedAttr'] == item['selectedAttr'];
+      });
+      if (hasData) {
+        for (var i = 0; i < cartListData.length; i++) {
+          if (cartListData[i]['_id'] == item['_id'] &&
+              cartListData[i]['selectedAttr'] == item['selectedAttr']) {
+            //有当前数据
+            cartListData[i]["count"] = cartListData[i]["count"] + 1;
+          }
+        }
+        await Storage.setString("cartList", json.encode(cartListData));
+      } else {
+        //没有当前数据
+        cartListData.add(item);
+        await Storage.setString("cartList", json.encode(cartListData));
       }
-      );
-       if (hasData) {
-         
-       } else {
-       }
     } catch (e) {
       //没有数据
       List tempList = [];
       tempList.add(item);
       await Storage.setString("cartList", json.encode(tempList));
     }
-    
   }
 
-  static formtCartData(item){
+  static formtCartData(item) {
     final Map data = new Map<String, dynamic>();
     data['_id'] = item.sId;
     data['title'] = item.title;
@@ -75,7 +85,7 @@ class CartServices {
     data['count'] = item.count;
     data['pic'] = item.pic;
     //是否选中
-    data['checked'] = true;    
+    data['checked'] = true;
     return data;
   }
 }

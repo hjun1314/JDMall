@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import '../tools/ScreenAdaper.dart';
 import 'CartNum.dart';
 class CartItemPage extends StatefulWidget {
+  Map _itemData;
+  CartItemPage(this._itemData,{Key key}) : super(key: key);
+
   @override
   _CartItemPageState createState() => _CartItemPageState();
 }
 
 class _CartItemPageState extends State<CartItemPage> {
+  Map _itemData;
+  @override
+  void initState() { 
+    super.initState();
+    this._itemData = widget._itemData;
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +34,7 @@ class _CartItemPageState extends State<CartItemPage> {
           ),
           Container(
             child: Image.network(
-                "https://www.itying.com/images/flutter/list2.jpg"),
+                "${_itemData["pic"]}"),
             width: ScreenAdaper.width(160),
           ),
           Expanded(
@@ -36,17 +45,18 @@ class _CartItemPageState extends State<CartItemPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                            "菲特旋转盖轻量杯不锈钢保温杯学生杯商务杯情侣杯保冷杯子便携水杯LHC4131WB(450Ml)白蓝",
+                            "${_itemData["title"]}",
                             maxLines: 2),
+                            Text("123"),
                         Stack(
                           children: [
                             Align(
                               alignment: Alignment.centerLeft,
-child: Text("￥12",style: TextStyle(color: Colors.red),),
+child: Text("￥${_itemData['price']}",style: TextStyle(color: Colors.red),),
                             ),
                            Align(
                              alignment: Alignment.centerRight,
-                             child: CartNumPage(),
+                             child: CartNumPage(_itemData),
                            )],
                         )
                       ])))

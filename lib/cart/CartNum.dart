@@ -5,20 +5,24 @@ import 'package:jdmarket/tools/ScreenAdaper.dart';
 // import '../model/ProduContentModel.dart';
 class CartNumPage extends StatefulWidget {
   // ProductContentitem _productContentitem;
-  // CartNumPage(this._productContentitem,{Key key}) : super(key: key);
+  Map _itemData;
+  CartNumPage(this._itemData,{Key key}) : super(key: key);
   @override
   _CartNumPageState createState() => _CartNumPageState();
 }
 
 class _CartNumPageState extends State<CartNumPage> {
-  // ProductContentitem _productContentitem;
-  // @override
-  // void initState() { 
-  //   super.initState();
-  //   this._productContentitem = widget._productContentitem;
-  // }
+  
+  Map _itemData;
+    @override
+    void initState() { 
+      super.initState();
+      this._itemData = widget._itemData;
+    }
+
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       decoration:
           BoxDecoration(border: Border.all(width: 1, color: Colors.black12)),
@@ -51,7 +55,7 @@ class _CartNumPageState extends State<CartNumPage> {
           border: Border(
               left: BorderSide(color: Colors.black12, width: 1),
               right: BorderSide(color: Colors.black12, width: 1))),
-      child: Text("1"),
+      child: Text("${_itemData["count"]}"),
     );
   }
 
