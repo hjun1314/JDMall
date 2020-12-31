@@ -5,32 +5,32 @@ import 'package:flutter/widgets.dart';
 import '../model/ProduContentModel.dart';
 
 class ProductContentCartNumPage extends StatefulWidget {
-  ProductContentitem _productContentitem;
-  ProductContentCartNumPage(this._productContentitem, {Key key})
-      : super(key: key);
+  ProductContentitem _productContent;
+  ProductContentCartNumPage(this._productContent, {Key key}) : super(key: key);
   @override
   _ProductContentCartNumPageState createState() =>
       _ProductContentCartNumPageState();
 }
 
 class _ProductContentCartNumPageState extends State<ProductContentCartNumPage> {
-  ProductContentitem _productContentitem;
+  ProductContentitem _productContent;
   @override
   void initState() {
     super.initState();
-    this._productContentitem = widget._productContentitem;
-    print(this._productContentitem);
+    this._productContent = widget._productContent;
+    print(this._productContent.count);
     print(111111);
   }
 
   @override
   Widget build(BuildContext context) {
+    ScreenAdaper.init(context);
     return Container(
       decoration:
           BoxDecoration(border: Border.all(width: 1, color: Colors.black12)),
       width: ScreenAdaper.width(165),
       child: Row(
-        children: [_leftBtn(), _centerContent(), _rightBtn()],
+        children:<Widget> [_leftBtn(), _centerContent(), _rightBtn()],
       ),
     );
   }
@@ -44,9 +44,9 @@ class _ProductContentCartNumPageState extends State<ProductContentCartNumPage> {
         width: ScreenAdaper.width(45),
       ),
       onTap: () {
-        if (this._productContentitem.count > 1) {
+        if (this._productContent.count > 1) {
           setState(() {
-            this._productContentitem.count = this._productContentitem.count - 1;
+            this._productContent.count = this._productContent.count - 1;
           });
         }
       },
@@ -62,7 +62,7 @@ class _ProductContentCartNumPageState extends State<ProductContentCartNumPage> {
           border: Border(
               left: BorderSide(color: Colors.black12, width: 1),
               right: BorderSide(color: Colors.black12, width: 1))),
-      child: Text("1"),
+      child: Text("${this._productContent.count}"),
     );
   }
 
@@ -76,7 +76,7 @@ class _ProductContentCartNumPageState extends State<ProductContentCartNumPage> {
       ),
       onTap: () {
         setState(() {
-          this._productContentitem.count = this._productContentitem.count + 1;
+          this._productContent.count = this._productContent.count + 1;
         });
       },
     );

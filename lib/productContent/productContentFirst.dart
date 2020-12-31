@@ -141,6 +141,8 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
     // print(tempArr.join(','));
     setState(() {
       this._selectedValue = tempArr.join(',');
+      //给筛选属性赋值
+      this._productContent.selectedAttr = this._selectedValue;
     });
   }
 
@@ -198,35 +200,40 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
         context: context,
         builder: (contex) {
           return StatefulBuilder(
+            
             builder: (BuildContext context, setBottomState) {
               return GestureDetector(
                 //解决showModalBottomSheet点击消失的问题
                 onTap: () {
                   return false;
                 },
+                                      
                 child: Stack(
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.all(ScreenAdaper.width(20)),
-                      child: ListView(
+                      child: Flexible(
+                        child: ListView(
                         children: <Widget>[
                           Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: _getAttrWidget(setBottomState)),
+                              children: _getAttrWidget(setBottomState)
+                              ),
                           Divider(),
                           Container(
                             margin: EdgeInsets.only(top: 10),
                             height: ScreenAdaper.height(80),
                             child: InkWell(
                               onTap: () {
-                                // _attrBottomSheet();
+                                 _attrBottomSheet();
                               },
                               child: Row(
-                                children: [
+                                children: <Widget>[
                                   Text("数量:",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                   SizedBox(width: 10),
+                                  
                                   ProductContentCartNumPage(
                                       this._productContent)
                                 ],
@@ -234,6 +241,7 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
                             ),
                           ),
                         ],
+                      ),
                       ),
                     ),
                     Positioned(

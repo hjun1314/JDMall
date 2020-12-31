@@ -36,6 +36,9 @@ class _ProductContentPageState extends State<ProductContentPage> {
       this._productContentList.add(productContent.result);
     });
     print(this._productContentList);
+    print(widget.arguments["id"]);
+        print("12345");
+
   }
 
   @override
