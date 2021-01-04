@@ -58,8 +58,10 @@ class _CartPageState extends State<CartPage> {
                                   Container(
                                     width: ScreenAdaper.width(60),
                                     child: Checkbox(
-                                      onChanged: (value) {},
-                                      value: true,
+                                      onChanged: (value) {
+                                        cartProvider.checkAll(value);
+                                      },
+                                      value: cartProvider.isCheckAll,
                                       activeColor: Colors.pink,
                                     ),
                                   ),

@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:jdmarket/cart/CartItem.dart';
 import 'package:jdmarket/tools/ScreenAdaper.dart';
+import 'package:provider/provider.dart';
+import '../provider/CartProvider.dart';
+
 // import 'package:flutter/widgets.dart';
 // import '../model/ProduContentModel.dart';
 class CartNumPage extends StatefulWidget {
   // ProductContentitem _productContentitem;
   Map _itemData;
-  CartNumPage(this._itemData,{Key key}) : super(key: key);
+  CartNumPage(this._itemData, {Key key}) : super(key: key);
   @override
   _CartNumPageState createState() => _CartNumPageState();
 }
 
 class _CartNumPageState extends State<CartNumPage> {
-  
   Map _itemData;
-    @override
-    void initState() { 
-      super.initState();
-      this._itemData = widget._itemData;
-    }
+  var carProvier;
+  @override
+  void initState() {
+    super.initState();
+    this._itemData = widget._itemData;
+  }
 
   @override
   Widget build(BuildContext context) {
-    
+    this.carProvier = Provider.of<CartProvider>(context);
     return Container(
       decoration:
           BoxDecoration(border: Border.all(width: 1, color: Colors.black12)),
@@ -42,6 +45,10 @@ class _CartNumPageState extends State<CartNumPage> {
         width: ScreenAdaper.width(45),
       ),
       onTap: () {
+        if (_itemData["count"] > 1) {
+          _itemData["count"]--;
+          this.carProvier.itemCountChange();
+        }
       },
     );
   }
@@ -67,7 +74,11 @@ class _CartNumPageState extends State<CartNumPage> {
         height: ScreenAdaper.height(45),
         width: ScreenAdaper.width(45),
       ),
-      onTap: () {},
+      onTap: () {
+        _itemData["count"]++;
+
+        this.carProvier.itemCountChange();
+      },
     );
   }
 }

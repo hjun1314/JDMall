@@ -18,8 +18,6 @@ class _ProductContentCartNumPageState extends State<ProductContentCartNumPage> {
   void initState() {
     super.initState();
     this._productContent = widget._productContent;
-    print(this._productContent.count);
-    print(111111);
   }
 
   @override
