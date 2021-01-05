@@ -8,13 +8,18 @@ import '../pages/tabs/Cart.dart';
 import '../pages/tabs/Login.dart';
 import '../register/RegisterFirst.dart';
 import '../register/RegisterSecond.dart';
+import '../register/RegisterThird.dart';
 final routes = {
   '/':(context) => Tabs(),
   '/productDetail':(context,{arguments})=>ProductDetailPage(arguments: arguments),
   '/search':(context) => SearchPage(),
   '/productContent':(context,{arguments})=>ProductContentPage(arguments:arguments),
   '/cart':(context) => CartPage(),
-  '/login':(contex) => LoginPage()
+  '/login':(contex) => LoginPage(),
+  '/registerFirst':(context) => RegisterFirstPage(),
+  '/registerSecond':(context) => RegisterSecondPage(),
+  '/registerThird':(context) => RegisterThirdPage(),
+
 };
 
 var onGenerateRoute = (RouteSettings settings) {

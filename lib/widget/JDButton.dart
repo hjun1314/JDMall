@@ -17,7 +17,7 @@ class JDButtonPage extends StatelessWidget {
       child: Container(
         // margin: EdgeInsets.fromLTRB(15, 6, 15, 6),
         // padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
-        height: this.height,
+        height:ScreenAdaper.height(this.height),
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

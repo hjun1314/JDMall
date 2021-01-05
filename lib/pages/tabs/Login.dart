@@ -63,7 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: InkWell(
                         child: Text("新用户注册"),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/registerFirst');
+                        },
                       )),
                 ],
               ),
