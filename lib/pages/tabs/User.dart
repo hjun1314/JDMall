@@ -35,16 +35,28 @@ class _UserPageState extends State<UserPage> {
                         height: ScreenAdaper.height(100)),
                   ),
                 ),
+              //  Expanded(
+              //    flex: 1,
+              //    child: Column(
+              //      mainAxisAlignment: MainAxisAlignment.center,
+              //      crossAxisAlignment: CrossAxisAlignment.start,
+              //      children: [
+              //        Text("登录/注册",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(32))),
+              //       //  Text("普通会员",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(24))),
+
+              //      ],
+              //    ),
+              //  )
                Expanded(
                  flex: 1,
-                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     Text("用户名：13123123",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(32))),
-                     Text("普通会员",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(24))),
+                 child: InkWell(
+                   child: 
+                     Text("登录/注册",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(32))),
+                    //  Text("普通会员",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(24))),
 
-                   ],
+                  onTap: (){
+                    Navigator.pushNamed(context, "/login");
+                  },
                  ),
                )
               ],
