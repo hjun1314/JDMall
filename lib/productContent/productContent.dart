@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:jdmarket/provider/CartProvider.dart';
 import 'package:jdmarket/widget/LoadingWidget.dart';
+import 'package:provider/provider.dart';
 import '../productContent/productContentFirst.dart';
 import '../productContent/productContentSecond.dart';
 import '../productContent/productContentThird.dart';
@@ -10,6 +12,7 @@ import '../config/Config.dart';
 import '../model/ProduContentModel.dart';
 import '../tools/EventBus.dart';
 import '../tools/CartService.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductContentPage extends StatefulWidget {
   final Map arguments;
@@ -37,12 +40,12 @@ class _ProductContentPageState extends State<ProductContentPage> {
     });
     print(this._productContentList);
     print(widget.arguments["id"]);
-        print("12345");
-
+    print("12345");
   }
 
   @override
   Widget build(BuildContext context) {
+    var cartProvider = Provider.of<CartProvider>(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -97,6 +100,7 @@ class _ProductContentPageState extends State<ProductContentPage> {
             ? Stack(
                 children: [
                   TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
                     children: [
                       ProductContentFirstPage(this._productContentList),
                       ProductContentSecondPage(this._productContentList),
@@ -116,29 +120,40 @@ class _ProductContentPageState extends State<ProductContentPage> {
                             color: Colors.white),
                         child: Row(
                           children: [
-                            Container(
-                              width: 100,
-                              height: ScreenAdaper.height(88),
-                              child: Column(
-                                children: [
-                                  Icon(Icons.shopping_cart),
-                                  Text("购物车")
-                                ],
-                              ),
-                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/cart');
+                                },
+                                child: Container(
+                                    width: 110,
+                                    height: ScreenAdaper.height(88),
+                                    child: Column(
+                                      children: [
+                                        Icon(Icons.shopping_cart),
+                                        Text("购物车")
+                                      ],
+                                    ))),
                             Expanded(
                               flex: 1,
                               child: JDButtonPage(
                                 color: Color.fromRGBO(253, 1, 0, 0.9),
                                 text: "加入购物车",
-                                sb: () {
+                                sb: () async {
                                   if (this._productContentList[0].attr.length >
                                       0) {
                                     eventBus
                                         .fire(new ProductContentEvent("加入购物车"));
                                   } else {
                                     print("加入购物车...");
-                                  }        
+                                    await CartServices.addCart(
+                                        this._productContentList[0]);
+                                    //更新provider
+                                    cartProvider.updateCartList();
+                                    Fluttertoast.showToast(
+                                        msg: "加入购物车成功",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER);
+                                  }
                                 },
                               ),
                             ),

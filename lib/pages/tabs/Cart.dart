@@ -12,6 +12,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  bool _isEdit = false;
   @override
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
@@ -22,7 +23,11 @@ class _CartPageState extends State<CartPage> {
           actions: [
             IconButton(
               icon: Icon(Icons.launch),
-              onPressed: null,
+              onPressed: () {
+                setState(() {
+                  this._isEdit = !this._isEdit;
+                });
+              },
             )
           ],
         ),
@@ -65,18 +70,40 @@ class _CartPageState extends State<CartPage> {
                                       activeColor: Colors.pink,
                                     ),
                                   ),
-                                  Text("全选")
+                                  Text("全选"),
+                                  SizedBox(width: 10),
+                                  this._isEdit == false
+                                      ? Text("总价:")
+                                      : Text(""),
+                                  SizedBox(width: 5),
+                                  this._isEdit == false
+                                      ? Text("${cartProvider.allPrice}",
+                                          style: TextStyle(
+                                              fontSize: 20, color: Colors.red))
+                                      : Text("")
                                 ],
                               )),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: RaisedButton(
-                              child: Text("结算",
-                                  style: TextStyle(color: Colors.white)),
-                              color: Colors.red,
-                              onPressed: () {},
-                            ),
-                          )
+                          this._isEdit == false
+                              ? Align(
+                                  alignment: Alignment.centerRight,
+                                  child: RaisedButton(
+                                    child: Text("结算",
+                                        style: TextStyle(color: Colors.white)),
+                                    color: Colors.red,
+                                    onPressed: () {},
+                                  ),
+                                )
+                              : Align(
+                                  alignment: Alignment.centerRight,
+                                  child: RaisedButton(
+                                    child: Text("删除",
+                                        style: TextStyle(color: Colors.white)),
+                                    color: Colors.red,
+                                    onPressed: () {
+                                      cartProvider.removeItem();
+                                    },
+                                  ),
+                                )
                         ],
                       ),
                     ),

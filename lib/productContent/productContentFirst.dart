@@ -9,6 +9,8 @@ import '../tools/EventBus.dart';
 import '../tools/CartService.dart';
 import '../productContent/productContentCartNum.dart';
 import '../provider/CartProvider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class ProductContentFirstPage extends StatefulWidget {
   final List _productContentList;
   ProductContentFirstPage(this._productContentList, {Key key})
@@ -201,48 +203,40 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
         context: context,
         builder: (contex) {
           return StatefulBuilder(
-            
             builder: (BuildContext context, setBottomState) {
               return GestureDetector(
                 //解决showModalBottomSheet点击消失的问题
                 onTap: () {
                   return false;
                 },
-                                      
+
                 child: Stack(
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.all(ScreenAdaper.width(20)),
                       child: Flexible(
                         child: ListView(
-                        children: <Widget>[
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: _getAttrWidget(setBottomState)
-                              ),
-                          Divider(),
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            height: ScreenAdaper.height(80),
-                            child: InkWell(
-                              onTap: () {
-                                //  _attrBottomSheet();
-                              },
+                          children: <Widget>[
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: _getAttrWidget(setBottomState)),
+                            Divider(),
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              height: ScreenAdaper.height(80),
                               child: Row(
                                 children: <Widget>[
                                   Text("数量:",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                   SizedBox(width: 10),
-                                  
                                   ProductContentCartNumPage(
                                       this._productContent)
                                 ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
                       ),
                     ),
                     Positioned(
@@ -258,12 +252,20 @@ class _ProductContentFirstPageState extends State<ProductContentFirstPage>
                               child: JDButtonPage(
                                 color: Color.fromRGBO(253, 1, 0, 0.9),
                                 text: "加入购物车",
-                                sb: ()async {
+                                height: 70,
+                                
+                                sb: () async {
                                   print('加入购物车');
-                               await   CartServices.addCart(this._productContent);
+                                  
+                                  await CartServices.addCart(
+                                      this._productContent);
                                   Navigator.of(context).pop();
                                   //调用provider更新数据
-                                  this.cartProvider.updateCartList;
+                                  this.cartProvider.updateCartList();
+                                  Fluttertoast.showToast(
+                                      msg: "加入购物车成功",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER);
                                 },
                               ),
                             ),

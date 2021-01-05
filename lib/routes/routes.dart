@@ -4,12 +4,13 @@ import '../pages/tabs/Tabs.dart';
 import '../pages/ProductDetail.dart';
 import '../pages/Search.dart';
 import '../productContent/productContent.dart';
+import '../pages/tabs/Cart.dart';
 final routes = {
   '/':(context) => Tabs(),
   '/productDetail':(context,{arguments})=>ProductDetailPage(arguments: arguments),
   '/search':(context) => SearchPage(),
   '/productContent':(context,{arguments})=>ProductContentPage(arguments:arguments),
-  
+  '/cart':(context) => CartPage(),
 };
 
 var onGenerateRoute = (RouteSettings settings) {

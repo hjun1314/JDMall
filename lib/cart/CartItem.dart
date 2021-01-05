@@ -56,7 +56,7 @@ class _CartItemPageState extends State<CartItemPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("${_itemData["title"]}", maxLines: 2),
-                        Text("${_itemData["selectedAttr"]}"),
+                        Text("${_itemData["selectedAttr"]}", maxLines: 2),
                         Stack(
                           children: [
                             Align(
