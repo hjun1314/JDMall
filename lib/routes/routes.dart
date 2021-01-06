@@ -17,8 +17,8 @@ final routes = {
   '/cart':(context) => CartPage(),
   '/login':(contex) => LoginPage(),
   '/registerFirst':(context) => RegisterFirstPage(),
-  '/registerSecond':(context) => RegisterSecondPage(),
-  '/registerThird':(context) => RegisterThirdPage(),
+  '/registerSecond':(context,{arguments}) => RegisterSecondPage(arugmunts: arguments),
+  '/registerThird':(context,{arguments}) => RegisterThirdPage(argumunts: arguments),
 
 };
 
