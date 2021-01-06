@@ -31,7 +31,7 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
           JDButtonPage(
             text: "下一步",
             color: Colors.red,
-            height: ScreenAdaper.height(75),
+            height: 74,
             sb: (){
               Navigator.pushNamed(context, '/registerSecond');
             },
