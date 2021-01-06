@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:jdmarket/tools/ScreenAdaper.dart';
 import '../../widget/JDText.dart';
-
+import '../../widget/JDButton.dart';
+import '../../config/Config.dart';
+import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../../tools/Storage.dart';
+import 'dart:convert';
+import '../../tools/EventBus.dart';
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
@@ -10,6 +16,49 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  //监听登录页面销毁的事件
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    eventBus.fire(new UserEvent("登录成功..."));
+  }
+  String username = "";
+  String password = "";
+  //登录
+  loginAction()async{
+    RegExp reg = new RegExp(r"^1\d{10}$");
+    if (!reg.hasMatch(this.username)) {
+       Fluttertoast.showToast(
+        msg: '手机号格式不对',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
+    }else if(password.length < 6){
+ Fluttertoast.showToast(
+        msg: '密码不正确',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
+    }else {
+            var api = '${Config.domain}api/doLogin';
+            var response = await Dio().post(api,data: {"username": this.username,"password":this.password});
+            if (response.data["success"]) {
+        print(response.data);
+        //保存用户信息
+        Storage.setString('userInfo', json.encode(response.data["userinfo"]));
+
+        Navigator.pop(context);
+        
+      } else {
+        Fluttertoast.showToast(
+          msg: '${response.data["message"]}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +91,17 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 30),
             JDTextPage(
               text: "请输入用户名",
-              onChanged: (value) {},
+              onChanged: (value) {
+                this.username = value;
+              },
             ),
             SizedBox(height: 10),
             JDTextPage(
               text: "请输入密码",
               password: true,
-              onChanged: (value) {},
+              onChanged: (value) {
+                this.password = value;
+              },
             ),
             SizedBox(height: 10),
             Container(
@@ -69,10 +122,18 @@ class _LoginPageState extends State<LoginPage> {
                       )),
                 ],
               ),
+            ),
+            SizedBox(height: 10),
+            JDButtonPage(
+              text: "登录",
+              color: Colors.red,
+              height: 74,
+              sb: loginAction,
             )
           ],
         ),
       ),
+      
     );
   }
 }
