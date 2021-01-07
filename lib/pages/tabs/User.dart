@@ -59,33 +59,38 @@ class _UserPageState extends State<UserPage> {
                         height: ScreenAdaper.height(100)),
                   ),
                 ),
-               !this.isLogin ?
-                Expanded(
-                  flex: 1,
-                  child: InkWell(
-                    child: Text("登录/注册",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: ScreenAdaper.size(32))),
-                    //  Text("普通会员",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(24))),
+                !this.isLogin
+                    ? Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          child: Text("登录/注册",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: ScreenAdaper.size(32))),
+                          //  Text("普通会员",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(24))),
 
-                    onTap: () {
-                      Navigator.pushNamed(context, "/login");
-                    },
-                  ),
-                ) :  
-                 Expanded(
-                   flex: 1,
-                   child: Column(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Text("用户名：${this.userInfo[0]['username']}",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(32))),
-                       Text("普通会员",style:TextStyle(color: Colors.white,fontSize: ScreenAdaper.size(24))),
-
-                     ],
-                   ),
-                 )
+                          onTap: () {
+                            Navigator.pushNamed(context, "/login");
+                          },
+                        ),
+                      )
+                    : Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("用户名：${this.userInfo[0]['username']}",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: ScreenAdaper.size(32))),
+                            Text("普通会员",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: ScreenAdaper.size(24))),
+                          ],
+                        ),
+                      )
               ],
             ),
           ),

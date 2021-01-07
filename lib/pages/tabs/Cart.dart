@@ -13,6 +13,11 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   bool _isEdit = false;
+//结算跳转
+ doCheckOut(){
+   Navigator.pushNamed(context, '/checkOut');
+ }
+
   @override
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
@@ -90,7 +95,7 @@ class _CartPageState extends State<CartPage> {
                                     child: Text("结算",
                                         style: TextStyle(color: Colors.white)),
                                     color: Colors.red,
-                                    onPressed: () {},
+                                    onPressed: doCheckOut,
                                   ),
                                 )
                               : Align(
