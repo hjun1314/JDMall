@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jdmarket/tools/ScreenAdaper.dart';
+import 'package:jdmarket/tools/UserService.dart';
 import '../../cart/CartItem.dart';
 import 'package:provider/provider.dart';
 import '../../provider/CartProvider.dart';
+import '../../tools/CartService.dart';
+import '../../provider/CheckOutProvider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CartPage extends StatefulWidget {
   CartPage({Key key}) : super(key: key);
@@ -13,15 +17,40 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   bool _isEdit = false;
+  var changeCheckOutProvider;
 //结算跳转
- doCheckOut(){
-   Navigator.pushNamed(context, '/checkOut');
+ doCheckOut() async{
+   //获取购物车选中的数据
+   List checkOutData = await CartServices.getCheckOutData();
+   //保存购物车中选中的数据
+   this.changeCheckOutProvider.changeCheckOutListData(checkOutData);
+   //购物车中有没选中的数据
+   if (checkOutData.length > 0) {
+     var loginState = await UserServices.getUserLoginState();
+     if (loginState) {
+          Navigator.pushNamed(context, '/checkOut');
+     }else{
+        Fluttertoast.showToast(
+          msg: '您还没有登录，请登录以后再去结算',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
+        Navigator.pushNamed(context, '/login');
+     }
+   } else {
+      Fluttertoast.showToast(
+          msg: '购物车中没有选中数据',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
+   }
  }
 
   @override
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
     var cartProvider = Provider.of<CartProvider>(context);
+    changeCheckOutProvider = Provider.of<CheckOutProvider>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text("购物车"),
