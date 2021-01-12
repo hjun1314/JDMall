@@ -18,6 +18,11 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   bool _isEdit = false;
   var changeCheckOutProvider;
+  @override
+  void initState() { 
+    super.initState();
+    
+  }
 //结算跳转
  doCheckOut() async{
    //获取购物车选中的数据

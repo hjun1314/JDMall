@@ -10,6 +10,9 @@ import '../register/RegisterFirst.dart';
 import '../register/RegisterSecond.dart';
 import '../register/RegisterThird.dart';
 import '../checkOut/CheckOut.dart';
+import '../address/AddressAdd.dart';
+import '../address/AddressEdit.dart';
+import '../address/AddressList.dart';
 final routes = {
   '/':(context) => Tabs(),
   '/productDetail':(context,{arguments})=>ProductDetailPage(arguments: arguments),
@@ -21,6 +24,8 @@ final routes = {
   '/registerSecond':(context,{arguments}) => RegisterSecondPage(arugmunts: arguments),
   '/registerThird':(context,{arguments}) => RegisterThirdPage(argumunts: arguments),
   '/checkOut':(context) => CheckOutPage(),
+  '/addressAdd':(context) => AddressAddPage(),
+  '/addressList':(context) => AddressListPage(),
 
 };
 

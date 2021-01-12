@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'routes/routes.dart';
 import 'package:provider/provider.dart';
 import 'provider/CartProvider.dart';
+import 'provider/CheckOutProvider.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -17,20 +19,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        // ChangeNotifierProvider(builder: (_)=,)
-        ChangeNotifierProvider(create: (_)=>CartProvider())
-      ],
-      child: MaterialApp(
-       initialRoute: '/',
-       onGenerateRoute: onGenerateRoute,
-       debugShowCheckedModeBanner: false,
-       theme: ThemeData(
-         primaryColor: Colors.white
-       ),
-      )
-       
-    );
-
+        providers: [
+          // ChangeNotifierProvider(builder: (_)=,)
+          ChangeNotifierProvider(create: (_) => CartProvider()),
+          ChangeNotifierProvider(create: (_) => CheckOutProvider())
+        ],
+        child: MaterialApp(
+          initialRoute: '/',
+          onGenerateRoute: onGenerateRoute,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(primaryColor: Colors.white),
+        ));
   }
 }

@@ -7,11 +7,14 @@ class JDTextPage extends StatelessWidget {
     final bool password;
     final Object onChanged;
     final String text;
-   JDTextPage({Key key,this.width = 60,this.password = false,this.onChanged= null,this.text = "输入内容"}) : super(key: key);
+    final int maxLines;
+    final double height;
+   JDTextPage({Key key,this.width = 60,this.password = false,this.onChanged= null,this.text = "输入内容",this.maxLines =1,this.height = 68}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextField(
+        maxLines: this.maxLines,
         onChanged: this.onChanged,
         obscureText: this.password,
         decoration: InputDecoration (
@@ -25,7 +28,7 @@ class JDTextPage extends StatelessWidget {
         
         
       ),
-      height: ScreenAdaper.height(68),
+      height: this.height,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(

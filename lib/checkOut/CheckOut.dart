@@ -63,7 +63,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
             children: [
               Container(
                 color: Colors.white,
-                child: Column(
+                child: InkWell(
+                 child: Column(
                   children: [
                     SizedBox(height: 10),
                     ListTile(
@@ -80,6 +81,11 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     SizedBox(height: 10),
                   ],
                 ),
+                  onTap: (){
+Navigator.pushNamed(context, '/addressList');
+                  },
+                  
+                )
               ),
               SizedBox(height: 20),
               Container(
