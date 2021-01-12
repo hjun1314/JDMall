@@ -37,6 +37,7 @@ dependencies:
   event_bus: ^1.1.1
   fluttertoast: ^7.1.6
   city_pickers: ^0.2.0
+  crypto: ^2.1.5
 
 
 dev_dependencies:
