@@ -7,6 +7,7 @@ import '../config/Config.dart';
 import '../tools/SignService.dart';
 import '../tools/UserService.dart';
 import 'package:dio/dio.dart';
+
 class AddressListPage extends StatefulWidget {
   AddressListPage({Key key}) : super(key: key);
 
@@ -15,31 +16,55 @@ class AddressListPage extends StatefulWidget {
 }
 
 class _AddressListPageState extends State<AddressListPage> {
-  
   List addressList = [];
-  //监听增加收货地址的广播
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     this._getAddressList();
-    eventBus.on<AddressListEvent>().listen((event) {
-          this._getAddressList();
+    //监听增加收货地址的广播
 
+    eventBus.on<AddressListEvent>().listen((event) {
+      this._getAddressList();
     });
   }
 
-  _getAddressList()async{
-List userInfo = await UserServices.getUserInfo();
-var tempJson = {"uid":userInfo[0]['_id'],'salt':userInfo[0]["salt"]
-  };
-  var sign = SignServices.getSign(tempJson);
-  var api = '${Config.domain}api/addressList?uid=${userInfo[0]['_id']}&sign=${sign}';
-  var response = await Dio().get(api);
-  print(response.data["result"]);
-  setState(() {
-    this.addressList = response.data["result"];
-  });
+//监听页面销毁
+  dispose() {
+    super.dispose();
+    eventBus.fire(new CheckOutEvent("修改默认地址成功"));
   }
+
+  _getAddressList() async {
+    List userInfo = await UserServices.getUserInfo();
+    var tempJson = {"uid": userInfo[0]['_id'], 'salt': userInfo[0]["salt"]};
+    var sign = SignServices.getSign(tempJson);
+    var api =
+        '${Config.domain}api/addressList?uid=${userInfo[0]['_id']}&sign=${sign}';
+    var response = await Dio().get(api);
+    print(response.data["result"]);
+    setState(() {
+      this.addressList = response.data["result"];
+    });
+  }
+
+  //点击修改默认地址
+  _changeDefaultAddress(id) async {
+    List userinfo = await UserServices.getUserInfo();
+
+    var tempJson = {
+      "uid": userinfo[0]['_id'],
+      "id": id,
+      "salt": userinfo[0]["salt"]
+    };
+
+    var sign = SignServices.getSign(tempJson);
+
+    var api = '${Config.domain}api/changeDefaultAddress';
+    var response = await Dio()
+        .post(api, data: {"uid": userinfo[0]['_id'], "id": id, "sign": sign});
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
@@ -51,27 +76,33 @@ var tempJson = {"uid":userInfo[0]['_id'],'salt':userInfo[0]["salt"]
         child: Stack(
           children: [
             ListView.builder(
-itemCount: this.addressList.length,
-itemBuilder: (context,index){
-  return Column(
-    children: [
-      SizedBox(height: 20),
-      ListTile(
-                leading: this.addressList[index]["default_address"] == 1 ? Icon(Icons.check, color: Colors.red):Text(""),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              itemCount: this.addressList.length,
+              itemBuilder: (context, index) {
+                return Column(
                   children: [
-                    Text("${this.addressList[index]["name"]} ${this.addressList[index]["phone"]}"),
-                    SizedBox(height: 10),
-                    Text("${this.addressList[index]["address"]}")
+                    // SizedBox(height: 20),
+                    ListTile(
+                      leading: this.addressList[index]["default_address"] == 1
+                          ? Icon(Icons.check, color: Colors.red)
+                          : Text(""),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              "${this.addressList[index]["name"]} ${this.addressList[index]["phone"]}"),
+                          SizedBox(height: 10),
+                          Text("${this.addressList[index]["address"]}")
+                        ],
+                      ),
+                      trailing: Icon(Icons.edit, color: Colors.blue),
+                      onTap: () {
+                        _changeDefaultAddress(this.addressList[index]["_id"]);
+                      },
+                    ),
+                    Divider(height: 20),
                   ],
-                ),
-                trailing: Icon(Icons.edit, color: Colors.blue)
-              ),
-              Divider(height: 20),
-    ],
-  );
-},
+                );
+              },
             ),
             Positioned(
               bottom: 0,
