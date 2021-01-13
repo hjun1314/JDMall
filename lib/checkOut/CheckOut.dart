@@ -16,9 +16,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
       children: [
         Container(
           width: ScreenAdaper.width(160),
-          child: Image.network(
-              "${item['pic']}",
-              fit: BoxFit.cover),
+          child: Image.network("${item['pic']}", fit: BoxFit.cover),
         ),
         Expanded(
           flex: 1,
@@ -34,7 +32,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("￥${item['price']}", style: TextStyle(color: Colors.red)),
+                      child: Text("￥${item['price']}",
+                          style: TextStyle(color: Colors.red)),
                     ),
                     Align(
                       alignment: Alignment.centerRight,
@@ -63,44 +62,29 @@ class _CheckOutPageState extends State<CheckOutPage> {
             children: [
               Container(
                 color: Colors.white,
-                child: InkWell(
-                 child: Column(
+                child: Column(
                   children: [
                     SizedBox(height: 10),
                     ListTile(
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("张三 12131231233"),
-                          SizedBox(height: 10),
-                          Text("北京市。。。。")
-                        ],
+                      title: Center(
+                        child: Text("请添加收货地址"),
                       ),
                       trailing: Icon(Icons.navigate_next),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/addressList');
+                      },
                     ),
-                    SizedBox(height: 10),
                   ],
                 ),
-                  onTap: (){
-Navigator.pushNamed(context, '/addressList');
-                  },
-                  
-                )
               ),
               SizedBox(height: 20),
               Container(
                 child: Column(
-                  children: checkOutProvider.checkOutListData.map((value){
-                    return Column(
-                      children: [
-_checkList(value),
-Divider()
-                      ],
-                    );
-                  }).toList(
-
-                  )
-                ),
+                    children: checkOutProvider.checkOutListData.map((value) {
+                  return Column(
+                    children: [_checkList(value), Divider()],
+                  );
+                }).toList()),
               ),
               SizedBox(height: 20),
               Container(

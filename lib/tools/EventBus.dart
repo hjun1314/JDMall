@@ -15,3 +15,11 @@ class UserEvent{
   }
 
 }
+//地址列表广播
+class AddressListEvent{
+  String str;
+  AddressListEvent(String str){
+    this.str = str;
+  }
+
+}

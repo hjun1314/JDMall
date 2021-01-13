@@ -1,6 +1,12 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:jdmarket/tools/ScreenAdaper.dart';
-
+import '../provider/CheckOutProvider.dart';
+import '../tools/EventBus.dart';
+import '../config/Config.dart';
+import '../tools/SignService.dart';
+import '../tools/UserService.dart';
+import 'package:dio/dio.dart';
 class AddressListPage extends StatefulWidget {
   AddressListPage({Key key}) : super(key: key);
 
@@ -9,6 +15,31 @@ class AddressListPage extends StatefulWidget {
 }
 
 class _AddressListPageState extends State<AddressListPage> {
+  
+  List addressList = [];
+  //监听增加收货地址的广播
+  @override
+  void initState() { 
+    super.initState();
+    this._getAddressList();
+    eventBus.on<AddressListEvent>().listen((event) {
+          this._getAddressList();
+
+    });
+  }
+
+  _getAddressList()async{
+List userInfo = await UserServices.getUserInfo();
+var tempJson = {"uid":userInfo[0]['_id'],'salt':userInfo[0]["salt"]
+  };
+  var sign = SignServices.getSign(tempJson);
+  var api = '${Config.domain}api/addressList?uid=${userInfo[0]['_id']}&sign=${sign}';
+  var response = await Dio().get(api);
+  print(response.data["result"]);
+  setState(() {
+    this.addressList = response.data["result"];
+  });
+  }
   @override
   Widget build(BuildContext context) {
     ScreenAdaper.init(context);
@@ -19,74 +50,29 @@ class _AddressListPageState extends State<AddressListPage> {
       body: Container(
         child: Stack(
           children: [
-            ListView(children: [
-              SizedBox(height: 20),
-              ListTile(
-                leading: Icon(Icons.check, color: Colors.red),
+            ListView.builder(
+itemCount: this.addressList.length,
+itemBuilder: (context,index){
+  return Column(
+    children: [
+      SizedBox(height: 20),
+      ListTile(
+                leading: this.addressList[index]["default_address"] == 1 ? Icon(Icons.check, color: Colors.red):Text(""),
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("张三 13312341234"),
+                    Text("${this.addressList[index]["name"]} ${this.addressList[index]["phone"]}"),
                     SizedBox(height: 10),
-                    Text("广州市天河区珠江新城")
+                    Text("${this.addressList[index]["address"]}")
                   ],
                 ),
-                trailing: Icon(Icons.edit, color: Colors.blue),
+                trailing: Icon(Icons.edit, color: Colors.blue)
               ),
               Divider(height: 20),
-              ListTile(
-                leading: Icon(Icons.check, color: Colors.red),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("张三 13312341234"),
-                    SizedBox(height: 10),
-                    Text("广州市天河区珠江新城")
-                  ],
-                ),
-                trailing: Icon(Icons.edit, color: Colors.blue),
-              ),
-              Divider(height: 20),
-              ListTile(
-                leading: Icon(Icons.check, color: Colors.red),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("张三 13312341234"),
-                    SizedBox(height: 10),
-                    Text("广州市天河区珠江新城")
-                  ],
-                ),
-                trailing: Icon(Icons.edit, color: Colors.blue),
-              ),
-              Divider(height: 20),
-              ListTile(
-                leading: Icon(Icons.check, color: Colors.red),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("张三 13312341234"),
-                    SizedBox(height: 10),
-                    Text("广州市天河区珠江新城")
-                  ],
-                ),
-                trailing: Icon(Icons.edit, color: Colors.blue),
-              ),
-              Divider(height: 20),
-              ListTile(
-                leading: Icon(Icons.check, color: Colors.red),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("张三 13312341234"),
-                    SizedBox(height: 10),
-                    Text("广州市天河区珠江新城")
-                  ],
-                ),
-                trailing: Icon(Icons.edit, color: Colors.blue),
-              ),
-              Divider(height: 20),
-            ]),
+    ],
+  );
+},
+            ),
             Positioned(
               bottom: 0,
               width: ScreenAdaper.width(750),
