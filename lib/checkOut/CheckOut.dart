@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import '../tools/ScreenAdaper.dart';
 import '../provider/CheckOutProvider.dart';
 import 'package:provider/provider.dart';
+import '../tools/EventBus.dart';
+import '../config/Config.dart';
+import '../tools/SignService.dart';
+import '../tools/UserService.dart';
+import 'package:dio/dio.dart';
 
 class CheckOutPage extends StatefulWidget {
   CheckOutPage({Key key}) : super(key: key);
@@ -11,6 +16,30 @@ class CheckOutPage extends StatefulWidget {
 }
 
 class _CheckOutPageState extends State<CheckOutPage> {
+  List _addressList = [];
+  @override
+  void initState() {
+    super.initState();
+    this._getDefaultAddress();
+    //监听广播
+    eventBus.on<CheckOutEvent>().listen((event) {
+      this._getDefaultAddress();
+    });
+  }
+
+//获取默认地址
+  _getDefaultAddress() async {
+    List userinfo = await UserServices.getUserInfo();
+    var tempJson = {"uid": userinfo[0]["_id"], "salt": userinfo[0]['salt']};
+    var sign = SignServices.getSign(tempJson);
+    var api =
+        '${Config.domain}api/oneAddressList?uid=${userinfo[0]["_id"]}&sign=${sign}';
+    var response = await Dio().get(api);
+    setState(() {
+      this._addressList = response.data["result"];
+    });
+  }
+
   _checkList(item) {
     return Row(
       children: [
@@ -65,15 +94,31 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 child: Column(
                   children: [
                     SizedBox(height: 10),
-                    ListTile(
-                      title: Center(
-                        child: Text("请添加收货地址"),
-                      ),
-                      trailing: Icon(Icons.navigate_next),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/addressList');
-                      },
-                    ),
+                    this._addressList.length > 0
+                        ? ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                    "${this._addressList[0]["name"]}  ${this._addressList[0]["phone"]}"),
+                                SizedBox(height: 10),
+                                Text("${this._addressList[0]["address"]}"),
+                              ],
+                            ),
+                            trailing: Icon(Icons.navigate_next),
+                            onTap: () {
+                              Navigator.pushNamed(context, '/addressList');
+                            },
+                          )
+                        : ListTile(
+                            title: Center(
+                              child: Text("请添加收货地址"),
+                            ),
+                            trailing: Icon(Icons.navigate_next),
+                            onTap: () {
+                              Navigator.pushNamed(context, '/addressAdd');
+                            },
+                          ),
                   ],
                 ),
               ),

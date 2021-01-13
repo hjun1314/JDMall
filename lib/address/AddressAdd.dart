@@ -108,7 +108,7 @@ class _AddressAddPageState extends State<AddressAddPage> {
                   };
                   var sign = SignServices.getSign(tempJson);
                   var api = "${Config.domain}api/addAddress";
-                  var result = Dio().post(api, data: {
+                  var result = await Dio().post(api, data: {
                     "uid": userinfo[0]["_id"],
                     "name": this.name,
                     "phone": this.phone,

@@ -23,3 +23,10 @@ class AddressListEvent{
   }
 
 }
+//结算页面
+class CheckOutEvent{
+  String str;
+  CheckOutEvent(String str){
+    this.str = str;
+  }
+}
