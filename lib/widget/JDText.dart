@@ -9,11 +9,13 @@ class JDTextPage extends StatelessWidget {
     final String text;
     final int maxLines;
     final double height;
-   JDTextPage({Key key,this.width = 60,this.password = false,this.onChanged= null,this.text = "输入内容",this.maxLines =1,this.height = 68}) : super(key: key);
+    final TextEditingController controller;
+   JDTextPage({Key key,this.width = 60,this.password = false,this.onChanged= null,this.text = "输入内容",this.maxLines =1,this.height = 68,this.controller=null}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextField(
+        controller: this.controller,
         maxLines: this.maxLines,
         onChanged: this.onChanged,
         obscureText: this.password,

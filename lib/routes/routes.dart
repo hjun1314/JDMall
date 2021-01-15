@@ -26,6 +26,7 @@ final routes = {
   '/checkOut':(context) => CheckOutPage(),
   '/addressAdd':(context) => AddressAddPage(),
   '/addressList':(context) => AddressListPage(),
+  '/addressEdit':(context,{arguments}) => AddressEditPage(arguments: arguments),
 
 };
 
