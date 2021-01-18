@@ -40,7 +40,7 @@ class _OrderPageState extends State<OrderPage> {
                         title: Text("6小时学会TypeScript入门实战视频教"),
                         trailing: Text("x1"),
                         onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
+                          Navigator.pushNamed(context, '/orderinfo');
                         },
                       ),
                       SizedBox(height: 10),
@@ -55,58 +55,7 @@ class _OrderPageState extends State<OrderPage> {
                         title: Text("6小时学会TypeScript入门实战视频教"),
                         trailing: Text("x1"),
                         onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      ListTile(
-                        leading: Text("合计：￥122"),
-                        trailing: FlatButton(
-                          child: Text("申请售后"),
-                          onPressed: (){
-
-                          },
-                          color: Colors.grey[100],
-                        ),
-                      )
-                      
-                    ],
-                  ),
-                ),
-                 Card(
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text("订单编号：xxxxx"),
-                      ),
-                      SizedBox(height: 10),
-                      ListTile(
-                        leading: Container(
-                          width: ScreenAdaper.width(120),
-                          height: ScreenAdaper.width(120),
-                          child: Image.network(
-                              'https://www.itying.com/images/flutter/list2.jpg',
-                              fit: BoxFit.cover),
-                        ),
-                        title: Text("6小时学会TypeScript入门实战视频教"),
-                        trailing: Text("x1"),
-                        onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      ListTile(
-                        leading: Container(
-                          width: ScreenAdaper.width(120),
-                          height: ScreenAdaper.width(120),
-                          child: Image.network(
-                              'https://www.itying.com/images/flutter/list2.jpg',
-                              fit: BoxFit.cover),
-                        ),
-                        title: Text("6小时学会TypeScript入门实战视频教"),
-                        trailing: Text("x1"),
-                        onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
+                          Navigator.pushNamed(context, '/orderinfo');
                         },
                       ),
                       SizedBox(height: 10),
@@ -142,7 +91,7 @@ class _OrderPageState extends State<OrderPage> {
                         title: Text("6小时学会TypeScript入门实战视频教"),
                         trailing: Text("x1"),
                         onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
+                          Navigator.pushNamed(context, '/orderinfo');
                         },
                       ),
                       SizedBox(height: 10),
@@ -157,7 +106,7 @@ class _OrderPageState extends State<OrderPage> {
                         title: Text("6小时学会TypeScript入门实战视频教"),
                         trailing: Text("x1"),
                         onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
+                          Navigator.pushNamed(context, '/orderinfo');
                         },
                       ),
                       SizedBox(height: 10),
@@ -193,7 +142,7 @@ class _OrderPageState extends State<OrderPage> {
                         title: Text("6小时学会TypeScript入门实战视频教"),
                         trailing: Text("x1"),
                         onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
+                          Navigator.pushNamed(context, '/orderinfo');
                         },
                       ),
                       SizedBox(height: 10),
@@ -208,7 +157,58 @@ class _OrderPageState extends State<OrderPage> {
                         title: Text("6小时学会TypeScript入门实战视频教"),
                         trailing: Text("x1"),
                         onTap: (){
-                          Navigator.pushNamed(context, 'orderinfo');
+                          Navigator.pushNamed(context, '/orderinfo');
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      ListTile(
+                        leading: Text("合计：￥122"),
+                        trailing: FlatButton(
+                          child: Text("申请售后"),
+                          onPressed: (){
+
+                          },
+                          color: Colors.grey[100],
+                        ),
+                      )
+                      
+                    ],
+                  ),
+                ),
+                 Card(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text("订单编号：xxxxx"),
+                      ),
+                      SizedBox(height: 10),
+                      ListTile(
+                        leading: Container(
+                          width: ScreenAdaper.width(120),
+                          height: ScreenAdaper.width(120),
+                          child: Image.network(
+                              'https://www.itying.com/images/flutter/list2.jpg',
+                              fit: BoxFit.cover),
+                        ),
+                        title: Text("6小时学会TypeScript入门实战视频教"),
+                        trailing: Text("x1"),
+                        onTap: (){
+                          Navigator.pushNamed(context, '/orderinfo');
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      ListTile(
+                        leading: Container(
+                          width: ScreenAdaper.width(120),
+                          height: ScreenAdaper.width(120),
+                          child: Image.network(
+                              'https://www.itying.com/images/flutter/list2.jpg',
+                              fit: BoxFit.cover),
+                        ),
+                        title: Text("6小时学会TypeScript入门实战视频教"),
+                        trailing: Text("x1"),
+                        onTap: (){
+                          Navigator.pushNamed(context, '/orderinfo');
                         },
                       ),
                       SizedBox(height: 10),

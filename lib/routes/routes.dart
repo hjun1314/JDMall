@@ -32,6 +32,7 @@ final routes = {
   '/addressEdit':(context,{arguments}) => AddressEditPage(arguments: arguments),
   '/pay':(context) => PayPage(),
   '/order':(context) => OrderPage(),
+  '/orderinfo':(context) => OrderInfoPage(),
 
 };
 
