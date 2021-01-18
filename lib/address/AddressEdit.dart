@@ -22,15 +22,14 @@ class _AddressEditPageState extends State<AddressEditPage> {
   TextEditingController nameController = new TextEditingController();
   TextEditingController phoneController = new TextEditingController();
   TextEditingController addressController = new TextEditingController();
+  
   @override
   void initState() {
     super.initState();
     nameController.text = widget.arguments['name'];
     phoneController.text = widget.arguments['phone'];
     addressController.text = widget.arguments['address'];
-    nameController.selection = TextSelection.fromPosition(
-        TextPosition(offset: nameController.text.length));
-        
+   
   }
 
 //页面销毁刷新
@@ -43,6 +42,12 @@ class _AddressEditPageState extends State<AddressEditPage> {
 
   @override
   Widget build(BuildContext context) {
+     nameController.selection = TextSelection.fromPosition(
+        TextPosition(offset: nameController.text.length, affinity: TextAffinity.downstream));
+  phoneController.selection = TextSelection.fromPosition(
+        TextPosition(offset: phoneController.text.length, affinity: TextAffinity.downstream)); 
+         addressController.selection = TextSelection.fromPosition(
+        TextPosition(offset: addressController.text.length, affinity: TextAffinity.downstream));
     return Scaffold(
       appBar: AppBar(
         title: Text("修改收货地址"),
@@ -58,11 +63,13 @@ class _AddressEditPageState extends State<AddressEditPage> {
               onChanged: (value) {
                 nameController.text = value;
               },
+              
             ),
             SizedBox(height: 10),
             JDTextPage(
               text: "收货人电话",
               controller: phoneController,
+            
               onChanged: (value) {
                 phoneController.text = value;
               },

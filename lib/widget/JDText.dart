@@ -16,6 +16,8 @@ class JDTextPage extends StatelessWidget {
     return Container(
       child: TextField(
         controller: this.controller,
+        keyboardType: TextInputType.text,
+  
         maxLines: this.maxLines,
         onChanged: this.onChanged,
         obscureText: this.password,

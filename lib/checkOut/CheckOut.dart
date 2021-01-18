@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jdmarket/provider/CartProvider.dart';
 import '../tools/ScreenAdaper.dart';
 import '../provider/CheckOutProvider.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,8 @@ import '../config/Config.dart';
 import '../tools/SignService.dart';
 import '../tools/UserService.dart';
 import 'package:dio/dio.dart';
+import '../tools/CheckOutService.dart';
+import 'dart:convert';
 
 class CheckOutPage extends StatefulWidget {
   CheckOutPage({Key key}) : super(key: key);
@@ -81,6 +84,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
   @override
   Widget build(BuildContext context) {
     var checkOutProvider = Provider.of<CheckOutProvider>(context);
+    var carProvider = Provider.of<CartProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("结算"),
@@ -177,7 +182,45 @@ class _CheckOutPageState extends State<CheckOutPage> {
                           child: Text("立即下单",
                               style: TextStyle(color: Colors.white)),
                           color: Colors.red,
-                          onPressed: () {},
+                          onPressed: () async {
+                            List userinfo = await UserServices.getUserInfo();
+                            //商品总价保留一位小数
+                            var allPrice = CheckOutService.getAllPrice(
+                                    checkOutProvider.checkOutListData)
+                                .toStringAsFixed(1);
+                            //获取签名
+                            var sign = SignServices.getSign({
+                              "uid": userinfo[0]["_id"],
+                              "phone": this._addressList[0]["phone"],
+                              "address": this._addressList[0]["address"],
+                              "name": this._addressList[0]["name"],
+                              "all_price": allPrice,
+                              "products": json
+                                  .encode(checkOutProvider.checkOutListData),
+                              "salt": userinfo[0]["salt"] //私钥
+                            });
+                            var api = '${Config.domain}api/doOrder';
+                            var response = await Dio().post(api, data: {
+                              "uid": userinfo[0]["_id"],
+                              "phone": this._addressList[0]["phone"],
+                              "address": this._addressList[0]["address"],
+                              "name": this._addressList[0]["name"],
+                              "all_price": allPrice,
+                              "products": json
+                                  .encode(checkOutProvider.checkOutListData),
+                              "sign": sign
+                            });
+                                                       print(response);
+
+                            if (response.data["success"]) {
+                              //删除购物车选中的商品数据
+                              await CheckOutService.removeUnSelectedCartItem();
+                              //调用CartProvider更新购物车数据
+                              carProvider.updateCartList();
+
+                              Navigator.pushNamed(context, '/pay');
+                            }
+                          },
                         ),
                       ))
                 ],
