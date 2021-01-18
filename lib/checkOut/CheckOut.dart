@@ -10,6 +10,7 @@ import '../tools/UserService.dart';
 import 'package:dio/dio.dart';
 import '../tools/CheckOutService.dart';
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CheckOutPage extends StatefulWidget {
   CheckOutPage({Key key}) : super(key: key);
@@ -183,7 +184,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                               style: TextStyle(color: Colors.white)),
                           color: Colors.red,
                           onPressed: () async {
-                            List userinfo = await UserServices.getUserInfo();
+                            if (this._addressList.length > 0) {
+                                 List userinfo = await UserServices.getUserInfo();
                             //商品总价保留一位小数
                             var allPrice = CheckOutService.getAllPrice(
                                     checkOutProvider.checkOutListData)
@@ -220,6 +222,14 @@ class _CheckOutPageState extends State<CheckOutPage> {
 
                               Navigator.pushNamed(context, '/pay');
                             }
+                            } else {
+                              Fluttertoast.showToast(
+                            msg: '请填写收货地址',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                          );
+                            }
+                         
                           },
                         ),
                       ))

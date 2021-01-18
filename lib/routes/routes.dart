@@ -14,6 +14,8 @@ import '../address/AddressAdd.dart';
 import '../address/AddressEdit.dart';
 import '../address/AddressList.dart';
 import '../checkOut/Pay.dart';
+import '../checkOut/Order.dart';
+import '../checkOut/OrderInfo.dart';
 final routes = {
   '/':(context) => Tabs(),
   '/productDetail':(context,{arguments})=>ProductDetailPage(arguments: arguments),
@@ -29,6 +31,8 @@ final routes = {
   '/addressList':(context) => AddressListPage(),
   '/addressEdit':(context,{arguments}) => AddressEditPage(arguments: arguments),
   '/pay':(context) => PayPage(),
+  '/order':(context) => OrderPage(),
+
 };
 
 var onGenerateRoute = (RouteSettings settings) {

@@ -97,6 +97,9 @@ class _UserPageState extends State<UserPage> {
           ListTile(
             leading: Icon(Icons.assignment, color: Colors.red),
             title: Text("全部订单"),
+            onTap: (){
+              Navigator.pushNamed(context, '/order');
+            },
           ),
           Divider(),
           ListTile(
