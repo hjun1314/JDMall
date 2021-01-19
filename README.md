@@ -12,6 +12,7 @@
     body 详情页面：stack，顶部是一个80高度的Positioned组件，商品列表对应的是一个container包含一个listview，具体数据加载看代码，有点复杂，涉及到上拉加载更多，点击销量价格不同显示排序，还有搜索展示等等...此外这里用到了GlobalKey缓存数据...据说这个GlobalKey代价很大，尽量少用
 8.首页热门推荐商品点击跳转：将Scaffold组件包裹在DefaultTabController组件内，DefaultTabController把TabBar和TabBarView关联起来，是给TabBar和TabBarView设置各种属性来满足需求。
 
+2021-1-19日 此次更新是最终更新，基本上实现了课堂上的功能....
 
     
                              
